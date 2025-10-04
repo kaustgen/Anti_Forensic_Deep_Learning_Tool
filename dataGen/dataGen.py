@@ -21,6 +21,35 @@
 
       https://sheriffjbabu.medium.com/python-ai-for-steganography-862e732cd3e0 - source
 """
+from fpdf import FPDF
+import random
+from steg_gen import Steg_Gen
+
+# pdf = FPDF()
+# pdf.add_page()
+# pdf.set_font("Arial", size=12)
+# pdf.cell(200, 10, txt="Hello, this is a simple sentence in a PDF!", ln=True, align="L")
+
+# pdf.output("hello.pdf")
+
+potent_sentence = ['My secret', 'My super duper secret', 'joly beans, holy greens, and billy jeen', 'woah oh ohhhhhh']
+
+steg = Steg_Gen()
+
+# Generate 100 different items
+for i in range(0, 1):
+    
+      n = random.randint(0, 3)
+
+      if n == 0:
+      
+      elif n == 1:
+      
+      elif n == 2:
+      
+      elif n == 3:
+      
+      else:
+            print("Out of bounds error")
 
 
-print("Hello world")
