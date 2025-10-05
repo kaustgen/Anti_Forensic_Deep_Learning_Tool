@@ -66,7 +66,7 @@ class Steg_Gen():
         ]
 
         # Runs the command and recieves a runtimecode, the output, and an error (or "" if there was none)
-        rc, out, err = self.run(cmd, capture_output=True)
+        rc, out, err = self._run(cmd, capture_output=True)
         if rc == 0:
             print(f"[OK] Embedded '{secret}' into '{stego}'.")
         else:
@@ -74,7 +74,7 @@ class Steg_Gen():
             print(err or out)
             raise SystemExit(1)
         
-    def _extract(self, stego, password, out_path):
+    def _extract(self, stego: str, password: str, out_path: str):
         if not self._check_tool("steghide"):
             raise SystemExit(1)
         # steghide by default writes the original filename; -xf forces output
@@ -99,7 +99,11 @@ class Steg_Gen():
     #   stego: Output cover that contains the secret
     #   extracted: Secret from setgo
     #   password: Encryption password
-    def create(self, cover, secret, stego, extracted, password):
+    def create(self, cover: str, secret: str, stego: str, extracted: str, password: str):
+        """Using a predefined steghide command will generate a stegnography file alongside an input
+        and output. Takes a file that will contain the secret, a file that is the secret, and outputs what looks
+        like the original cover but now contains a secret, will extract the secret and uses a password to encrypt it"""
+
         print("== steghide automation (concrete example) ==")
         print(f"Cover:    {cover}")
         print(f"Secret:   {secret}")

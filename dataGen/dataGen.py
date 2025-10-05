@@ -42,26 +42,35 @@ def generate_pdf(text, output_file):
 
 sentence = ['My secret', 'My super duper secret', 'joly beans, holy greens, and billy jeen', 'woah oh ohhhhhh']
 
-cover = ['cover_falls.jpg', 'cover_.jpg', 'cover_.jpg', 'cover_.jpg']
+cover = ['cover_falls', 'cover_boat', 'cover_girl', 'cover_house']
 
 steg = Steg_Gen()
+
+PASSWORD = 'five'
 
 # Generate 100 different items
 for i in range(0, 1):
 
-      cover_pick = 
+      # Randomly pick a secret and an image cover
+      cover_pick = cover[random.randint(0,3)]
 
       sentence_pick = sentence[random.randint(0, 3)]
+      sentence_pick = sentence_pick.replace(" ", "_")
 
-      if n == 0:
-      
-      elif n == 1:
-      
-      elif n == 2:
-      
-      elif n == 3:
-      
-      else:
-            print("Out of bounds error")
+      secret_pdf = f"dataGen/tests/og_{sentence_pick}_{i}.pdf"
+
+      stego = f"dataGen/tests/{sentence_pick}_{cover_pick}_{i}.jpg"
+
+      extracted = f"dataGen/tests/rec_{sentence_pick}_{i}.pdf"
+
+      generate_pdf(sentence_pick, secret_pdf)
+
+      steg.create(f"dataGen/{cover_pick}.jpg", secret_pdf, stego, extracted, PASSWORD)
+
+#   cover: File path of item that the secret will be hidden in
+#   secret: File path of the secret file insert
+#   stego: Output cover that contains the secret
+#   extracted: Secret from setgo
+#   password: Encryption password
 
 
