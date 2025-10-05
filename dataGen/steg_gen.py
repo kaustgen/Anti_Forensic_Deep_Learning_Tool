@@ -31,7 +31,7 @@ class Steg_Gen():
 
     # Called duing Embed to ensure steghide is installed
     # Returns error if not installed
-    def check_tool(self, name):
+    def _check_tool(self, name):
         if shutil.which(name) is None:
             print(f"[ERROR] Required tool '{name}' not found in PATH. Please install it.")
             return False
@@ -40,7 +40,7 @@ class Steg_Gen():
     # Takes commmand list and runs it through subprocess
     # Takes a command list
     # Returns a runtime code, the output, and an error if produced
-    def run(self, cmd_list, capture_output=False):
+    def _run(self, cmd_list, capture_output=False):
         try:
             proc = subprocess.run(cmd_list, capture_output=capture_output, text=True, check=False)
             return proc.returncode, proc.stdout if capture_output else "", proc.stderr if capture_output else ""
@@ -49,8 +49,8 @@ class Steg_Gen():
         
     # Runs a specific seteghide command to embed the secret in the cover, output the stego and encrypt it with a password
     # And do so quietly
-    def embed(self, cover, secret, stego, password):
-        if not self.check_tool("steghide"):
+    def _embed(self, cover, secret, stego, password):
+        if not self._check_tool("steghide"):
             raise SystemExit(1)
         # Ensure cover and secret exist
         for p in (cover, secret):
@@ -74,8 +74,8 @@ class Steg_Gen():
             print(err or out)
             raise SystemExit(1)
         
-    def extract(self, stego, password, out_path):
-        if not self.check_tool("steghide"):
+    def _extract(self, stego, password, out_path):
+        if not self._check_tool("steghide"):
             raise SystemExit(1)
         # steghide by default writes the original filename; -xf forces output
         cmd = [
@@ -85,7 +85,7 @@ class Steg_Gen():
             "-xf", out_path,
             "-q"
         ]
-        rc, out, err = self.run(cmd, capture_output=True)
+        rc, out, err = self._run(cmd, capture_output=True)
         if rc == 0:
             print(f"[OK] Extracted embedded file to '{out_path}'.")
         else:
@@ -108,10 +108,10 @@ class Steg_Gen():
         print("Password: (hidden in script variable)")
 
         # 1) Embed
-        self.embed(cover, secret, stego, password)
+        self._embed(cover, secret, stego, password)
 
         # 2) Extract using same password
-        self.extract(stego, password, extracted)
+        self._extract(stego, password, extracted)
 
         # 3) Quick verify: check extracted file size > 0 and matches original size
         if os.path.isfile(extracted):

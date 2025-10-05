@@ -32,14 +32,26 @@ from steg_gen import Steg_Gen
 
 # pdf.output("hello.pdf")
 
-potent_sentence = ['My secret', 'My super duper secret', 'joly beans, holy greens, and billy jeen', 'woah oh ohhhhhh']
+def generate_pdf(text, output_file):
+      pdf = FPDF()
+      pdf.add_page()
+      pdf.set_font("Arial", size=12)
+      pdf.cell(200, 10, txt=text, ln=True, align="L")
+
+      pdf.output(f"{output_file}")
+
+sentence = ['My secret', 'My super duper secret', 'joly beans, holy greens, and billy jeen', 'woah oh ohhhhhh']
+
+cover = ['cover_falls.jpg', 'cover_.jpg', 'cover_.jpg', 'cover_.jpg']
 
 steg = Steg_Gen()
 
 # Generate 100 different items
 for i in range(0, 1):
-    
-      n = random.randint(0, 3)
+
+      cover_pick = 
+
+      sentence_pick = sentence[random.randint(0, 3)]
 
       if n == 0:
       
