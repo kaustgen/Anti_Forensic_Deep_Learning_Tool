@@ -97,6 +97,7 @@ for i in range(0, 50):
       row_count += 1
       ws.cell(row=row_count, column=1, value=str(stego))
       ws.cell(row=row_count, column=2, value=True)
+      row_count += 1
 
 wb.save(dataGen_folder / "stego_training.xlsx")
 
