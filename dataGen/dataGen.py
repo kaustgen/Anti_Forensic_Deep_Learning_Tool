@@ -24,6 +24,8 @@
 from fpdf import FPDF
 import random
 from steg_gen import Steg_Gen
+from openpyxl import Workbook
+from pathlib import Path
 
 # pdf = FPDF()
 # pdf.add_page()
@@ -33,12 +35,15 @@ from steg_gen import Steg_Gen
 # pdf.output("hello.pdf")
 
 def generate_pdf(text, output_file):
+      output_file = Path(output_file)
+      #output_file.parent.mkdir(parents=True, exist_ok=True)
+
       pdf = FPDF()
       pdf.add_page()
       pdf.set_font("Arial", size=12)
       pdf.cell(200, 10, txt=text, ln=True, align="L")
 
-      pdf.output(f"{output_file}")
+      pdf.output(str(output_file))
 
 sentence = ['My secret', 'My super duper secret', 'joly beans, holy greens, and billy jeen', 'woah oh ohhhhhh']
 
@@ -48,7 +53,18 @@ steg = Steg_Gen()
 
 PASSWORD = 'five'
 
+# Create a new excel workbook
+
+wb = Workbook()
+ws = wb.active
+ws["A1"] = "File Path"
+ws["B1"] = "Stegnography Applied?"
+
+row_count = 1
 # Generate 100 different items
+
+dataGen_folder = Path("dataGen")
+tests_folder = Path("gen_data")
 for i in range(0, 1):
 
       # Randomly pick a secret and an image cover
@@ -57,15 +73,29 @@ for i in range(0, 1):
       sentence_pick = sentence[random.randint(0, 3)]
       sentence_pick = sentence_pick.replace(" ", "_")
 
-      secret_pdf = f"dataGen/tests/og_{sentence_pick}_{i}.pdf"
+      #secret_pdf = f"dataGen/tests/og_{sentence_pick}_{i}.pdf"
+      secret_pdf = dataGen_folder / tests_folder / f"og_{sentence_pick}_{i}.pdf"
 
-      stego = f"dataGen/tests/{sentence_pick}_{cover_pick}_{i}.jpg"
+      #stego = f"dataGen/tests/{sentence_pick}_{cover_pick}_{i}.jpg"
+      stego = dataGen_folder / tests_folder / f"{sentence_pick}_{cover_pick}_{i}.jpg"
 
-      extracted = f"dataGen/tests/rec_{sentence_pick}_{i}.pdf"
+      #extracted = f"dataGen/tests/rec_{sentence_pick}_{i}.pdf"
+      extracted = dataGen_folder / tests_folder / f"rec_{sentence_pick}_{i}.pdf"
 
       generate_pdf(sentence_pick, secret_pdf)
 
-      steg.create(f"dataGen/{cover_pick}.jpg", secret_pdf, stego, extracted, PASSWORD)
+      #non_stego = f"dataGen/{cover_pick}.jpg"
+      non_stego = dataGen_folder / f"{cover_pick}.jpg"
+
+      steg.create(non_stego, secret_pdf, stego, extracted, PASSWORD)
+
+      ws.cell(row=row_count, column=1, value=non_stego)
+      ws.cell(row=row_count, column=2, value=False)
+      row_count += 1
+      ws.cell(row=row_count, column=1, value=stego)
+      ws.cell(row=row_count, column=2, value=True)
+
+wb.save(dataGen_folder / "stego_training.xlsx")
 
 #   cover: File path of item that the secret will be hidden in
 #   secret: File path of the secret file insert
