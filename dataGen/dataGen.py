@@ -36,7 +36,8 @@ from pathlib import Path
 
 def generate_pdf(text, output_file):
       output_file = Path(output_file)
-      #output_file.parent.mkdir(parents=True, exist_ok=True)
+      # Ensure parent directory exists before writing the PDF
+      output_file.parent.mkdir(parents=True, exist_ok=True)
 
       pdf = FPDF()
       pdf.add_page()
@@ -63,9 +64,11 @@ ws["B1"] = "Stegnography Applied?"
 row_count = 1
 # Generate 100 different items
 
-dataGen_folder = Path("dataGen")
-tests_folder = Path("gen_data")
-for i in range(0, 1):
+# Use script directory as the base so the script behaves the same regardless of CWD
+base_dir = Path(__file__).parent
+dataGen_folder = base_dir
+tests_folder = dataGen_folder / "gen_data"
+for i in range(0, 50):
 
       # Randomly pick a secret and an image cover
       cover_pick = cover[random.randint(0,3)]
@@ -89,10 +92,10 @@ for i in range(0, 1):
 
       steg.create(non_stego, secret_pdf, stego, extracted, PASSWORD)
 
-      ws.cell(row=row_count, column=1, value=non_stego)
+      ws.cell(row=row_count, column=1, value=str(non_stego))
       ws.cell(row=row_count, column=2, value=False)
       row_count += 1
-      ws.cell(row=row_count, column=1, value=stego)
+      ws.cell(row=row_count, column=1, value=str(stego))
       ws.cell(row=row_count, column=2, value=True)
 
 wb.save(dataGen_folder / "stego_training.xlsx")
