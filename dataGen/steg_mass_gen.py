@@ -71,9 +71,9 @@ tests_folder = dataGen_folder / "gen_data"
 for i in range(0, 50):
 
       # Randomly pick a secret and an image cover
-      cover_pick = cover[random.randint(0,3)]
+      cover_pick = cover[random.randint(0,30)]
 
-      sentence_pick = sentence[random.randint(0, 3)]
+      sentence_pick = sentence[random.randint(0, 30)]
       sentence_pick = sentence_pick.replace(" ", "_")
 
       #secret_pdf = f"dataGen/tests/og_{sentence_pick}_{i}.pdf"

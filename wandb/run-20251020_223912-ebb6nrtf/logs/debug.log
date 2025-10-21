@@ -1,0 +1,5 @@
+2025-10-20 22:39:12,952 INFO    MainThread:131086 [wandb_init.py:setup_run_log_directory():705] Logging user logs to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/wandb/run-20251020_223912-ebb6nrtf/logs/debug.log
+2025-10-20 22:39:12,952 INFO    MainThread:131086 [wandb_init.py:setup_run_log_directory():706] Logging internal logs to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/wandb/run-20251020_223912-ebb6nrtf/logs/debug-internal.log
+2025-10-20 22:39:12,952 INFO    MainThread:131086 [wandb_init.py:init():832] calling init triggers
+2025-10-20 22:39:12,952 INFO    MainThread:131086 [wandb_init.py:init():837] wandb.init called with sweep_config: {}
+config: {'learning_rate': 0.001, 'architecture': 'CNN', 'dataset': 'steg_excel', 'epochs': 100, '_wandb': {}}
