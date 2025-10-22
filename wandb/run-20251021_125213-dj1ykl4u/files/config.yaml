@@ -1,0 +1,70 @@
+_wandb:
+    value:
+        cli_version: 0.22.2
+        e:
+            cnau0t8lzvp92xxwfj7rfy0ngkh15p6m:
+                codePath: Stegnography/sten_dct_train.py
+                codePathLocal: Stegnography/sten_dct_train.py
+                cpu_count: 10
+                cpu_count_logical: 20
+                cudaVersion: "13.0"
+                disk:
+                    /:
+                        total: "1081101176832"
+                        used: "120371523584"
+                email: kaustgen@hawk.iit.edu
+                executable: /home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/bin/python3
+                git:
+                    commit: 5377e0f65f8f498d89a26eb61a00a033a56c7867
+                    remote: https://github.com/kaustgen/Anti_Forensic_Deep_Learning_Tool.git
+                gpu: NVIDIA GeForce RTX 3080 Laptop GPU
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ampere
+                      memoryTotal: "17179869184"
+                      name: NVIDIA GeForce RTX 3080 Laptop GPU
+                      uuid: GPU-91b97b21-30d1-9b4c-546c-6ed950a08945
+                host: KLap
+                memory:
+                    total: "16637079552"
+                os: Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39
+                program: /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct_train.py
+                python: CPython 3.13.5
+                root: /home/kdaus/Anti_Forensic_Deep_Learning_Tool
+                startedAt: "2025-10-21T17:52:13.122536Z"
+                writerId: cnau0t8lzvp92xxwfj7rfy0ngkh15p6m
+        m: []
+        python_version: 3.13.5
+        t:
+            "1":
+                - 1
+                - 5
+                - 41
+                - 53
+            "2":
+                - 1
+                - 5
+                - 41
+                - 53
+            "3":
+                - 1
+                - 3
+                - 13
+                - 16
+                - 24
+            "4": 3.13.5
+            "5": 0.22.2
+            "12": 0.22.2
+            "13": linux-x86_64
+batch_size:
+    value: 8
+dataset_size:
+    value: 2152
+device:
+    value: cuda
+epochs:
+    value: 100
+input_dim:
+    value: 210
+learning_rate:
+    value: 1e-05

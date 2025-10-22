@@ -5,13 +5,14 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.utils.data import DataLoader, random_split
+from torch.utils.data import DataLoader, random_split, Subset
 from pathlib import Path
 import wandb
 import numpy as np
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, classification_report, roc_auc_score, roc_curve
+from sklearn.model_selection import train_test_split
 import seaborn as sns
 from sten_dct import StegoImageDataset
 import logging
@@ -66,11 +67,23 @@ class StegoDetectionTrainer:
     def __init__(self, model, device='cuda', learning_rate=0.001, weight_decay=1e-4):
         self.model = model.to(device)
         self.device = device
+        # CrossEntropyLoss for multi-class classification (model outputs 2 logits, targets are class indices)
         self.criterion = nn.CrossEntropyLoss()
-        self.optimizer = optim.Adam(
+        # BCEWithLogitsLoss is for binary with single output - not appropriate for 2-logit output
+        # self.criterion = nn.BCEWithLogitsLoss()
+        # Adam
+        # self.optimizer = optim.Adam(
+        #     model.parameters(),
+        #     lr=learning_rate,
+        #     weight_decay=weight_decay
+        # )
+        # SGD optimizer with momentum and weight decay
+        self.optimizer = optim.SGD(
             model.parameters(),
             lr=learning_rate,
-            weight_decay=weight_decay
+            momentum=0.9,
+            weight_decay=weight_decay,
+            nesterov=True
         )
         self.scheduler = optim.lr_scheduler.ReduceLROnPlateau(
             self.optimizer, mode='min', factor=0.5, patience=5
@@ -254,15 +267,29 @@ class StegoDetectionTrainer:
         
         # Classification report
         logger.info("%s", "-"*50)
-        logger.info("Classification Report:\n%s", classification_report(
-            labels, 
-            predictions, 
-            target_names=['Clean', 'Steganography']
-        ))
-        
-        # Confusion matrix
-        cm = confusion_matrix(labels, predictions)
-        
+        # Ensure we always report both classes (0=Clean, 1=Steganography).
+        # classification_report raises if target_names length doesn't match found classes,
+        # so pass explicit labels and a zero_division policy to avoid errors when a class is missing.
+        try:
+            report = classification_report(
+                labels,
+                predictions,
+                labels=[0, 1],
+                target_names=['Clean', 'Steganography'],
+                zero_division=0,
+            )
+        except Exception:
+            logger.exception('classification_report failed; falling back to raw label counts')
+            report = str({
+                'unique_labels': np.unique(labels).tolist(),
+                'counts': {int(l): int(labels.count(l)) for l in set(labels)}
+            })
+
+        logger.info("Classification Report:\n%s", report)
+
+        # Confusion matrix (force 2x2 layout even if one class missing)
+        cm = confusion_matrix(labels, predictions, labels=[0, 1])
+
         if save_plots:
             # Plot confusion matrix
             plt.figure(figsize=(8, 6))
@@ -281,22 +308,29 @@ class StegoDetectionTrainer:
             plt.savefig(str(out_cm), dpi=300, bbox_inches='tight')
             logger.info("Saved confusion matrix to %s", out_cm)
             
-            # ROC curve
-            fpr, tpr, thresholds = roc_curve(labels, probs)
-            auc_score = roc_auc_score(labels, probs)
-            
-            plt.figure(figsize=(8, 6))
-            plt.plot(fpr, tpr, label=f'ROC Curve (AUC = {auc_score:.3f})')
-            plt.plot([0, 1], [0, 1], 'k--', label='Random Classifier')
-            plt.xlabel('False Positive Rate')
-            plt.ylabel('True Positive Rate')
-            plt.title('ROC Curve')
-            plt.legend()
-            plt.grid(True)
-            out_roc = MODEL_DIR / 'roc_curve.png'
-            plt.savefig(str(out_roc), dpi=300, bbox_inches='tight')
-            logger.info("Saved ROC curve to %s", out_roc)
-            logger.info("AUC Score: %.4f", auc_score)
+            # ROC curve - only valid if both classes are present
+            unique_labels = np.unique(labels)
+            if len(unique_labels) == 2:
+                try:
+                    fpr, tpr, thresholds = roc_curve(labels, probs)
+                    auc_score = roc_auc_score(labels, probs)
+
+                    plt.figure(figsize=(8, 6))
+                    plt.plot(fpr, tpr, label=f'ROC Curve (AUC = {auc_score:.3f})')
+                    plt.plot([0, 1], [0, 1], 'k--', label='Random Classifier')
+                    plt.xlabel('False Positive Rate')
+                    plt.ylabel('True Positive Rate')
+                    plt.title('ROC Curve')
+                    plt.legend()
+                    plt.grid(True)
+                    out_roc = MODEL_DIR / 'roc_curve.png'
+                    plt.savefig(str(out_roc), dpi=300, bbox_inches='tight')
+                    logger.info("Saved ROC curve to %s", out_roc)
+                    logger.info("AUC Score: %.4f", auc_score)
+                except Exception:
+                    logger.exception('Failed to compute ROC/AUC')
+            else:
+                logger.warning('Skipping ROC/AUC: only one class present in labels (%s)', unique_labels)
         
         return {
             'test_loss': test_loss,
@@ -307,15 +341,106 @@ class StegoDetectionTrainer:
             'confusion_matrix': cm
         }
 
+
+def stratified_split(dataset, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15, seed=42):
+    """
+    Perform stratified split of dataset to maintain class balance across splits.
+    
+    Args:
+        dataset: Dataset with labels accessible via dataset[idx][1]
+        train_ratio: Fraction for training set
+        val_ratio: Fraction for validation set
+        test_ratio: Fraction for test set
+        seed: Random seed for reproducibility
+    
+    Returns:
+        Tuple of (train_dataset, val_dataset, test_dataset) as Subset objects
+    """
+    # Extract all labels
+    logger.info("Extracting labels for stratified split...")
+    labels = []
+    for idx in range(len(dataset)):
+        try:
+            _, label = dataset[idx]
+            labels.append(label)
+        except Exception as e:
+            logger.warning("Failed to load sample %d for stratification: %s", idx, e)
+            labels.append(-1)  # Mark as invalid
+    
+    labels = np.array(labels)
+    indices = np.arange(len(dataset))
+    
+    # Filter out invalid samples
+    valid_mask = labels >= 0
+    valid_indices = indices[valid_mask]
+    valid_labels = labels[valid_mask]
+    
+    if len(valid_indices) == 0:
+        raise RuntimeError("No valid samples found in dataset")
+    
+    # Count class distribution
+    unique, counts = np.unique(valid_labels, return_counts=True)
+    logger.info("Overall class distribution:")
+    for cls, count in zip(unique, counts):
+        logger.info("  Class %d: %d samples (%.1f%%)", cls, count, 100 * count / len(valid_labels))
+    
+    # First split: train vs (val+test)
+    train_indices, temp_indices, train_labels, temp_labels = train_test_split(
+        valid_indices,
+        valid_labels,
+        train_size=train_ratio,
+        stratify=valid_labels,
+        random_state=seed
+    )
+    
+    # Second split: val vs test (from temp)
+    # Calculate proportion: if we have 0.15 val and 0.15 test from total,
+    # and temp is 0.30 of total, then val should be 0.15/0.30 = 0.5 of temp
+    val_ratio_of_temp = val_ratio / (val_ratio + test_ratio)
+    
+    val_indices, test_indices, val_labels, test_labels = train_test_split(
+        temp_indices,
+        temp_labels,
+        train_size=val_ratio_of_temp,
+        stratify=temp_labels,
+        random_state=seed
+    )
+    
+    # Log split statistics
+    logger.info("Stratified split complete:")
+    logger.info("  Train: %d samples", len(train_indices))
+    for cls in unique:
+        count = np.sum(train_labels == cls)
+        logger.info("    Class %d: %d (%.1f%%)", cls, count, 100 * count / len(train_labels))
+    
+    logger.info("  Val: %d samples", len(val_indices))
+    for cls in unique:
+        count = np.sum(val_labels == cls)
+        logger.info("    Class %d: %d (%.1f%%)", cls, count, 100 * count / len(val_labels))
+    
+    logger.info("  Test: %d samples", len(test_indices))
+    for cls in unique:
+        count = np.sum(test_labels == cls)
+        logger.info("    Class %d: %d (%.1f%%)", cls, count, 100 * count / len(test_labels))
+    
+    # Create Subset datasets
+    train_dataset = Subset(dataset, train_indices.tolist())
+    val_dataset = Subset(dataset, val_indices.tolist())
+    test_dataset = Subset(dataset, test_indices.tolist())
+    
+    return train_dataset, val_dataset, test_dataset
+
+
 def main():
     """Main training pipeline."""
     
     # Configuration
     EXCEL_PATH = Path(__file__).parent.parent / 'dataGen' / 'stego_training.xlsx'
     IMG_ROOT = Path('.')
-    BATCH_SIZE = 32
+    BATCH_SIZE = 8
     EPOCHS = 100
-    LEARNING_RATE = 0.001
+    EARLY_STOP_PATIENCE = 5
+    LEARNING_RATE = 1e-5
     DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
     # If using CUDA, enable cuDNN autotuner for potentially faster kernels
     if DEVICE.startswith('cuda'):
@@ -331,20 +456,34 @@ def main():
     dataset = StegoImageDataset(
         EXCEL_PATH, 
         IMG_ROOT, 
-        dct_channels=['Y', 'Db', 'Cr']
+        dct_channels=['Y', 'Cb', 'Cr']
     )
     
     # Get feature dimension from first sample
-    features, _ = dataset[0]
-    input_dim = features.shape[0]
+    # Find first valid sample to get input_dim
+    # Helps avoid errors if there is a corrupted image, i.e. 0 features
+    input_dim = None
+    for idx in range(min(100, len(dataset))):  # Check first 100 samples
+        try:
+            features, _ = dataset[idx]
+            if features.numel() > 0:  # Check not empty
+                input_dim = features.shape[0]
+                logger.info("Feature dimension: %d (from sample %d)", input_dim, idx)
+                break
+        except Exception as e:
+            logger.warning("Failed to load sample %d: %s", idx, e)
+            continue
+    
+    if input_dim is None or input_dim == 0:
+        raise RuntimeError("Could not determine feature dimension - all samples failed!")
     logger.info("Feature dimension: %d", input_dim)
 
-    # Initialize wandb (optional) and push hyperparameters
+    # Initialize wandb and push hyperparameters
     wandb_run = None
     if wandb is not None:
         try:
             wandb.init(
-                project=os.environ.get('WANDB_PROJECT', 'timestomping-detector'),
+                project=os.environ.get('WANDB_PROJECT', 'stegnography-detector'),
                 name=os.environ.get('WANDB_RUN_NAME', 'obvious_and_subtle_detection'),
                 config={
                     'batch_size': BATCH_SIZE,
@@ -362,17 +501,13 @@ def main():
         except Exception:
             logger.exception('wandb.init failed; continuing without wandb')
     
-    # Split dataset: 70% train, 15% val, 15% test
-    total_size = len(dataset)
-    train_size = int(0.7 * total_size)
-    val_size = int(0.15 * total_size)
-    test_size = total_size - train_size - val_size
-    
-    # Split the datasets
-    train_dataset, val_dataset, test_dataset = random_split(
-        dataset, 
-        [train_size, val_size, test_size],
-        generator=torch.Generator().manual_seed(42)
+    # Stratified split to maintain class balance
+    train_dataset, val_dataset, test_dataset = stratified_split(
+        dataset,
+        train_ratio=0.7,
+        val_ratio=0.15,
+        test_ratio=0.15,
+        seed=42
     )
     
     # Create data loaders. Use environment variable NUM_WORKERS to tune parallelism
@@ -444,13 +579,14 @@ def main():
         learning_rate=LEARNING_RATE
     )
     
+    # =========== MODEL TRAINING ============ #
     # Train the model
     logger.info("Starting training...")
     trainer.train(
         train_loader=train_loader,
         val_loader=val_loader,
         epochs=EPOCHS,
-        early_stop_patience=15
+        early_stop_patience=EARLY_STOP_PATIENCE
     )
     
     # Plot training history

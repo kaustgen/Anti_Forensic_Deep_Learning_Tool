@@ -1,0 +1,253 @@
+INFO:__main__:Initialized wandb run: spatial_cnn_CNNSpatial
+INFO:__main__:Starting training...
+INFO:sten_dct_train:Epoch 1/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:36<00:00, 18.46it/s, loss=0.466, acc=75.7]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:12<00:00, 11.92it/s]
+INFO:sten_dct_train:Train Loss: 0.5481, Train Acc: 75.72%
+INFO:sten_dct_train:Val Loss: 0.4643, Val Acc: 80.37%
+INFO:sten_dct_train:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+[34m[1mwandb[0m: [33mWARNING[0m Saving files without folders. If you want to preserve subdirectories pass base_path to wandb.save, i.e. wandb.save("/mnt/folder/file.h5", base_path="/mnt")
+INFO:sten_dct_train:Epoch 2/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:21<00:00, 31.11it/s, loss=0.797, acc=78.4]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 59.73it/s]
+INFO:sten_dct_train:Train Loss: 0.4968, Train Acc: 78.44%
+INFO:sten_dct_train:Val Loss: 0.4584, Val Acc: 80.80%
+INFO:sten_dct_train:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:sten_dct_train:Epoch 3/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:21<00:00, 30.89it/s, loss=0.733, acc=79.3]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:03<00:00, 38.91it/s]
+INFO:sten_dct_train:Train Loss: 0.4884, Train Acc: 79.34%
+INFO:sten_dct_train:Val Loss: 0.4687, Val Acc: 79.64%
+INFO:sten_dct_train:Epoch 4/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:16<00:00, 40.22it/s, loss=0.297, acc=79.7]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:06<00:00, 23.01it/s]
+INFO:sten_dct_train:Train Loss: 0.4841, Train Acc: 79.71%
+INFO:sten_dct_train:Val Loss: 0.4573, Val Acc: 80.97%
+INFO:sten_dct_train:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:sten_dct_train:Epoch 5/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:17<00:00, 38.72it/s, loss=0.419, acc=80.4]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 59.99it/s]
+INFO:sten_dct_train:Train Loss: 0.4714, Train Acc: 80.43%
+INFO:sten_dct_train:Val Loss: 0.4474, Val Acc: 82.05%
+INFO:sten_dct_train:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:sten_dct_train:Epoch 6/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:21<00:00, 32.26it/s, loss=0.336, acc=80.7]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 59.30it/s]
+INFO:sten_dct_train:Train Loss: 0.4637, Train Acc: 80.72%
+INFO:sten_dct_train:Val Loss: 0.4407, Val Acc: 82.39%
+INFO:sten_dct_train:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:sten_dct_train:Epoch 7/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:16<00:00, 40.55it/s, loss=0.204, acc=81.4]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 57.92it/s]
+INFO:sten_dct_train:Train Loss: 0.4624, Train Acc: 81.42%
+INFO:sten_dct_train:Val Loss: 0.4363, Val Acc: 82.48%
+INFO:sten_dct_train:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:sten_dct_train:Epoch 8/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:19<00:00, 34.15it/s, loss=0.585, acc=81.6]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 65.40it/s]
+INFO:sten_dct_train:Train Loss: 0.4524, Train Acc: 81.56%
+INFO:sten_dct_train:Val Loss: 0.4406, Val Acc: 81.96%
+INFO:sten_dct_train:Epoch 9/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:16<00:00, 41.13it/s, loss=0.342, acc=81.2]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:06<00:00, 24.22it/s]
+INFO:sten_dct_train:Train Loss: 0.4582, Train Acc: 81.19%
+INFO:sten_dct_train:Val Loss: 0.4355, Val Acc: 81.96%
+INFO:sten_dct_train:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:sten_dct_train:Epoch 10/50
+Training: 100%|█████████████████████████████████████████████████| 678/678 [00:16<00:00, 41.22it/s, loss=0.22, acc=81.6]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 57.98it/s]
+INFO:sten_dct_train:Train Loss: 0.4510, Train Acc: 81.64%
+INFO:sten_dct_train:Val Loss: 0.4351, Val Acc: 82.35%
+INFO:sten_dct_train:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:sten_dct_train:Epoch 11/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:20<00:00, 32.74it/s, loss=0.419, acc=81.7]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 57.13it/s]
+INFO:sten_dct_train:Train Loss: 0.4501, Train Acc: 81.72%
+INFO:sten_dct_train:Val Loss: 0.4330, Val Acc: 82.57%
+INFO:sten_dct_train:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:sten_dct_train:Epoch 12/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:17<00:00, 38.24it/s, loss=0.395, acc=81.8]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 59.84it/s]
+INFO:sten_dct_train:Train Loss: 0.4497, Train Acc: 81.83%
+INFO:sten_dct_train:Val Loss: 0.4296, Val Acc: 82.69%
+INFO:sten_dct_train:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:sten_dct_train:Epoch 13/50
+Training: 100%|██████████████████████████████████████████████████| 678/678 [00:21<00:00, 32.00it/s, loss=0.5, acc=82.1]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 54.29it/s]
+INFO:sten_dct_train:Train Loss: 0.4433, Train Acc: 82.15%
+INFO:sten_dct_train:Val Loss: 0.4271, Val Acc: 82.74%
+INFO:sten_dct_train:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:sten_dct_train:Epoch 14/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:20<00:00, 32.82it/s, loss=0.289, acc=82.2]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 59.46it/s]
+INFO:sten_dct_train:Train Loss: 0.4412, Train Acc: 82.25%
+INFO:sten_dct_train:Val Loss: 0.4334, Val Acc: 82.09%
+INFO:sten_dct_train:Epoch 15/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:17<00:00, 39.77it/s, loss=0.375, acc=82.5]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 61.84it/s]
+INFO:sten_dct_train:Train Loss: 0.4426, Train Acc: 82.45%
+INFO:sten_dct_train:Val Loss: 0.4293, Val Acc: 83.04%
+INFO:sten_dct_train:Epoch 16/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:20<00:00, 32.88it/s, loss=0.197, acc=82.6]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 61.77it/s]
+INFO:sten_dct_train:Train Loss: 0.4395, Train Acc: 82.64%
+INFO:sten_dct_train:Val Loss: 0.4231, Val Acc: 83.30%
+INFO:sten_dct_train:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:sten_dct_train:Epoch 17/50
+Training: 100%|█████████████████████████████████████████████████| 678/678 [00:16<00:00, 40.40it/s, loss=0.51, acc=82.4]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 57.84it/s]
+INFO:sten_dct_train:Train Loss: 0.4405, Train Acc: 82.43%
+INFO:sten_dct_train:Val Loss: 0.4231, Val Acc: 83.00%
+INFO:sten_dct_train:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:sten_dct_train:Epoch 18/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:20<00:00, 33.44it/s, loss=0.608, acc=82.7]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 53.68it/s]
+INFO:sten_dct_train:Train Loss: 0.4342, Train Acc: 82.67%
+INFO:sten_dct_train:Val Loss: 0.4238, Val Acc: 83.13%
+INFO:sten_dct_train:Epoch 19/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:20<00:00, 32.93it/s, loss=0.868, acc=82.8]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 54.43it/s]
+INFO:sten_dct_train:Train Loss: 0.4334, Train Acc: 82.82%
+INFO:sten_dct_train:Val Loss: 0.4351, Val Acc: 81.92%
+INFO:sten_dct_train:Epoch 20/50
+Training: 100%|█████████████████████████████████████████████████| 678/678 [00:17<00:00, 39.62it/s, loss=1.48, acc=82.8]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 59.37it/s]
+INFO:sten_dct_train:Train Loss: 0.4360, Train Acc: 82.83%
+INFO:sten_dct_train:Val Loss: 0.4290, Val Acc: 82.87%
+INFO:sten_dct_train:Epoch 21/50
+Training: 100%|█████████████████████████████████████████████████| 678/678 [00:20<00:00, 32.80it/s, loss=0.47, acc=82.9]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 58.59it/s]
+INFO:sten_dct_train:Train Loss: 0.4308, Train Acc: 82.88%
+INFO:sten_dct_train:Val Loss: 0.4312, Val Acc: 82.18%
+INFO:sten_dct_train:Epoch 22/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:16<00:00, 40.53it/s, loss=0.532, acc=82.8]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 52.07it/s]
+INFO:sten_dct_train:Train Loss: 0.4326, Train Acc: 82.76%
+INFO:sten_dct_train:Val Loss: 0.4254, Val Acc: 82.52%
+INFO:sten_dct_train:Epoch 23/50
+Training: 100%|█████████████████████████████████████████████████| 678/678 [00:20<00:00, 32.65it/s, loss=0.48, acc=83.1]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 59.91it/s]
+INFO:sten_dct_train:Train Loss: 0.4301, Train Acc: 83.07%
+INFO:sten_dct_train:Val Loss: 0.4164, Val Acc: 83.51%
+INFO:sten_dct_train:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:sten_dct_train:Epoch 24/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:21<00:00, 32.23it/s, loss=0.348, acc=83.3]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 59.64it/s]
+INFO:sten_dct_train:Train Loss: 0.4270, Train Acc: 83.29%
+INFO:sten_dct_train:Val Loss: 0.4208, Val Acc: 83.56%
+INFO:sten_dct_train:Epoch 25/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:16<00:00, 40.15it/s, loss=0.477, acc=83.4]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 61.83it/s]
+INFO:sten_dct_train:Train Loss: 0.4247, Train Acc: 83.44%
+INFO:sten_dct_train:Val Loss: 0.4168, Val Acc: 83.60%
+INFO:sten_dct_train:Epoch 26/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:20<00:00, 32.90it/s, loss=0.335, acc=83.7]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 55.67it/s]
+INFO:sten_dct_train:Train Loss: 0.4234, Train Acc: 83.69%
+INFO:sten_dct_train:Val Loss: 0.4183, Val Acc: 83.68%
+INFO:sten_dct_train:Epoch 27/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:16<00:00, 39.93it/s, loss=0.183, acc=83.5]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:06<00:00, 24.00it/s]
+INFO:sten_dct_train:Train Loss: 0.4212, Train Acc: 83.49%
+INFO:sten_dct_train:Val Loss: 0.4186, Val Acc: 83.51%
+INFO:sten_dct_train:Epoch 28/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:17<00:00, 39.40it/s, loss=0.169, acc=83.4]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 63.23it/s]
+INFO:sten_dct_train:Train Loss: 0.4220, Train Acc: 83.44%
+INFO:sten_dct_train:Val Loss: 0.4149, Val Acc: 83.77%
+INFO:sten_dct_train:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:sten_dct_train:Epoch 29/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:20<00:00, 33.05it/s, loss=0.427, acc=83.5]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 53.60it/s]
+INFO:sten_dct_train:Train Loss: 0.4213, Train Acc: 83.53%
+INFO:sten_dct_train:Val Loss: 0.4160, Val Acc: 83.68%
+INFO:sten_dct_train:Epoch 30/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:16<00:00, 40.88it/s, loss=0.352, acc=83.5]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 60.62it/s]
+INFO:sten_dct_train:Train Loss: 0.4227, Train Acc: 83.47%
+INFO:sten_dct_train:Val Loss: 0.4151, Val Acc: 83.73%
+INFO:sten_dct_train:Epoch 31/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:20<00:00, 33.06it/s, loss=0.628, acc=83.6]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 60.35it/s]
+INFO:sten_dct_train:Train Loss: 0.4187, Train Acc: 83.63%
+INFO:sten_dct_train:Val Loss: 0.4174, Val Acc: 83.68%
+INFO:sten_dct_train:Epoch 32/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:16<00:00, 40.77it/s, loss=0.747, acc=83.6]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 63.11it/s]
+INFO:sten_dct_train:Train Loss: 0.4227, Train Acc: 83.58%
+INFO:sten_dct_train:Val Loss: 0.4138, Val Acc: 84.07%
+INFO:sten_dct_train:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:sten_dct_train:Epoch 33/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:20<00:00, 33.49it/s, loss=0.506, acc=83.7]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 61.27it/s]
+INFO:sten_dct_train:Train Loss: 0.4179, Train Acc: 83.68%
+INFO:sten_dct_train:Val Loss: 0.4166, Val Acc: 84.03%
+INFO:sten_dct_train:Epoch 34/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:20<00:00, 32.58it/s, loss=0.144, acc=83.8]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 58.96it/s]
+INFO:sten_dct_train:Train Loss: 0.4209, Train Acc: 83.75%
+INFO:sten_dct_train:Val Loss: 0.4166, Val Acc: 83.94%
+INFO:sten_dct_train:Epoch 35/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:16<00:00, 40.47it/s, loss=0.343, acc=83.6]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 59.87it/s]
+INFO:sten_dct_train:Train Loss: 0.4205, Train Acc: 83.56%
+INFO:sten_dct_train:Val Loss: 0.4146, Val Acc: 84.07%
+INFO:sten_dct_train:Epoch 36/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:19<00:00, 34.00it/s, loss=0.556, acc=83.9]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 54.70it/s]
+INFO:sten_dct_train:Train Loss: 0.4145, Train Acc: 83.85%
+INFO:sten_dct_train:Val Loss: 0.4206, Val Acc: 83.86%
+INFO:sten_dct_train:Epoch 37/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:16<00:00, 39.96it/s, loss=0.389, acc=83.8]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 59.95it/s]
+INFO:sten_dct_train:Train Loss: 0.4178, Train Acc: 83.80%
+INFO:sten_dct_train:Val Loss: 0.4228, Val Acc: 84.03%
+INFO:sten_dct_train:Epoch 38/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:20<00:00, 32.74it/s, loss=0.493, acc=83.9]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 59.76it/s]
+INFO:sten_dct_train:Train Loss: 0.4158, Train Acc: 83.95%
+INFO:sten_dct_train:Val Loss: 0.4240, Val Acc: 83.56%
+INFO:sten_dct_train:Epoch 39/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:20<00:00, 33.89it/s, loss=0.548, acc=84.3]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 63.78it/s]
+INFO:sten_dct_train:Train Loss: 0.4104, Train Acc: 84.27%
+INFO:sten_dct_train:Val Loss: 0.4216, Val Acc: 83.51%
+INFO:sten_dct_train:Epoch 40/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:16<00:00, 41.09it/s, loss=0.162, acc=84.1]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 61.52it/s]
+INFO:sten_dct_train:Train Loss: 0.4118, Train Acc: 84.10%
+INFO:sten_dct_train:Val Loss: 0.4160, Val Acc: 83.99%
+INFO:sten_dct_train:Epoch 41/50
+Training: 100%|█████████████████████████████████████████████████| 678/678 [00:20<00:00, 32.99it/s, loss=0.51, acc=84.2]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 62.19it/s]
+INFO:sten_dct_train:Train Loss: 0.4094, Train Acc: 84.23%
+INFO:sten_dct_train:Val Loss: 0.4209, Val Acc: 83.94%
+INFO:sten_dct_train:Epoch 42/50
+Training: 100%|████████████████████████████████████████████████| 678/678 [00:16<00:00, 40.71it/s, loss=0.485, acc=84.4]
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:02<00:00, 62.29it/s]
+INFO:sten_dct_train:Train Loss: 0.4066, Train Acc: 84.43%
+INFO:sten_dct_train:Val Loss: 0.4253, Val Acc: 83.60%
+INFO:sten_dct_train:Early stopping triggered after 42 epochs
+INFO:sten_dct_train:Loaded best model from /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth for evaluation
+INFO:sten_dct_train:Saved training history to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/training_history_CNNSpatial.png
+INFO:sten_dct_train:==================================================
+INFO:sten_dct_train:EVALUATION ON TEST SET
+INFO:sten_dct_train:==================================================
+Validating: 100%|████████████████████████████████████████████████████████████████████| 146/146 [00:26<00:00,  5.54it/s]
+INFO:sten_dct_train:Test Loss: 0.4231
+INFO:sten_dct_train:Test Accuracy: 83.34%
+INFO:sten_dct_train:--------------------------------------------------
+INFO:sten_dct_train:Classification Report:
+               precision    recall  f1-score   support
+
+        Clean       0.77      0.95      0.85      1153
+Steganography       0.94      0.72      0.81      1170
+
+     accuracy                           0.83      2323
+    macro avg       0.85      0.83      0.83      2323
+ weighted avg       0.85      0.83      0.83      2323
+
+INFO:sten_dct_train:Saved confusion matrix to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/confusion_matrix.png
+INFO:sten_dct_train:Saved ROC curve to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/roc_curve.png
+INFO:sten_dct_train:AUC Score: 0.8208
+INFO:__main__:Saved final model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/final_stego_model_CNNSpatial.pth

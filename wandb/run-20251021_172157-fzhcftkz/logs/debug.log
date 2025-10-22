@@ -1,0 +1,27 @@
+2025-10-21 17:21:57,858 INFO    MainThread:348795 [wandb_setup.py:_flush():81] Current SDK version is 0.22.2
+2025-10-21 17:21:57,858 INFO    MainThread:348795 [wandb_setup.py:_flush():81] Configure stats pid to 348795
+2025-10-21 17:21:57,858 INFO    MainThread:348795 [wandb_setup.py:_flush():81] Loading settings from /home/kdaus/.config/wandb/settings
+2025-10-21 17:21:57,858 INFO    MainThread:348795 [wandb_setup.py:_flush():81] Loading settings from /home/kdaus/Anti_Forensic_Deep_Learning_Tool/wandb/settings
+2025-10-21 17:21:57,858 INFO    MainThread:348795 [wandb_setup.py:_flush():81] Loading settings from environment variables
+2025-10-21 17:21:57,858 INFO    MainThread:348795 [wandb_init.py:setup_run_log_directory():705] Logging user logs to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/wandb/run-20251021_172157-fzhcftkz/logs/debug.log
+2025-10-21 17:21:57,858 INFO    MainThread:348795 [wandb_init.py:setup_run_log_directory():706] Logging internal logs to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/wandb/run-20251021_172157-fzhcftkz/logs/debug-internal.log
+2025-10-21 17:21:57,858 INFO    MainThread:348795 [wandb_init.py:init():832] calling init triggers
+2025-10-21 17:21:57,858 INFO    MainThread:348795 [wandb_init.py:init():837] wandb.init called with sweep_config: {}
+config: {'model': 'CNNSpatial', 'batch_size': 16, 'epochs': 50, 'learning_rate': 0.0001, 'device': 'cuda', 'target_blocks': (32, 32), 'dct_channels': ['Y', 'Cb', 'Cr'], 'total_params': 4962946, 'trainable_params': 4962946, '_wandb': {}}
+2025-10-21 17:21:57,858 INFO    MainThread:348795 [wandb_init.py:init():880] starting backend
+2025-10-21 17:21:58,069 INFO    MainThread:348795 [wandb_init.py:init():883] sending inform_init request
+2025-10-21 17:21:58,079 INFO    MainThread:348795 [wandb_init.py:init():891] backend started and connected
+2025-10-21 17:21:58,081 INFO    MainThread:348795 [wandb_init.py:init():961] updated telemetry
+2025-10-21 17:21:58,087 INFO    MainThread:348795 [wandb_init.py:init():985] communicating run to backend with 90.0 second timeout
+2025-10-21 17:21:59,317 INFO    MainThread:348795 [wandb_init.py:init():1036] starting run threads in backend
+2025-10-21 17:21:59,379 INFO    MainThread:348795 [wandb_run.py:_console_start():2509] atexit reg
+2025-10-21 17:21:59,379 INFO    MainThread:348795 [wandb_run.py:_redirect():2357] redirect: wrap_raw
+2025-10-21 17:21:59,379 INFO    MainThread:348795 [wandb_run.py:_redirect():2426] Wrapping output streams.
+2025-10-21 17:21:59,379 INFO    MainThread:348795 [wandb_run.py:_redirect():2449] Redirects installed.
+2025-10-21 17:21:59,382 INFO    MainThread:348795 [wandb_init.py:init():1076] run started, returning control to user process
+2025-10-21 17:21:59,383 INFO    MainThread:348795 [wandb_watch.py:_watch():68] Watching
+2025-10-21 17:28:30,780 INFO    MainThread:348795 [wandb_run.py:_finish():2275] finishing run kaustgen1114/stegnography-detector-cnn/fzhcftkz
+2025-10-21 17:28:30,780 INFO    MainThread:348795 [wandb_run.py:_atexit_cleanup():2474] got exitcode: 0
+2025-10-21 17:28:30,781 INFO    MainThread:348795 [wandb_run.py:_restore():2456] restore
+2025-10-21 17:28:30,781 INFO    MainThread:348795 [wandb_run.py:_restore():2462] restore done
+2025-10-21 17:28:31,791 INFO    MainThread:348795 [wandb_run.py:_footer_sync_info():3872] logging synced files

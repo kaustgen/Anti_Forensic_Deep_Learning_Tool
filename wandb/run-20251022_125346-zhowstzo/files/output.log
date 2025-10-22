@@ -1,0 +1,43 @@
+INFO:__main__:Initialized wandb run: spatial_cnn_CNNSpatial
+INFO:__main__:Starting training...
+INFO:sten_dct_train:Epoch 1/50
+Training:   0%|                                                                                | 0/678 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct_cnn_train.py", line 283, in <module>
+    main()
+    ~~~~^^
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct_cnn_train.py", line 248, in main
+    trainer.train(
+    ~~~~~~~~~~~~~^
+        train_loader=train_loader,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        early_stop_patience=EARLY_STOP_PATIENCE
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct_train.py", line 176, in train
+    train_loss, train_acc = self.train_epoch(train_loader)
+                            ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct_train.py", line 111, in train_epoch
+    loss = self.criterion(outputs, labels)
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1775, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1786, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/lib/python3.13/site-packages/torch/nn/modules/loss.py", line 850, in forward
+    return F.binary_cross_entropy_with_logits(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        input,
+        ^^^^^^
+    ...<3 lines>...
+        reduction=self.reduction,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/lib/python3.13/site-packages/torch/nn/functional.py", line 3589, in binary_cross_entropy_with_logits
+    raise ValueError(
+        f"Target size ({target.size()}) must be the same as input size ({input.size()})"
+    )
+ValueError: Target size (torch.Size([16])) must be the same as input size (torch.Size([16, 2]))

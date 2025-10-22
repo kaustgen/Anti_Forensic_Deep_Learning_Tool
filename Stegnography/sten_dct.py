@@ -57,7 +57,7 @@ class StegoImageDataset(Dataset):
             dct_features: 'histogram', 'cooccurrence', or 'both'
         """
         # Load from Excel (no header row) to ensure first column is path and second is label
-        self.records = pd.read_excel(excel_path, header=None)
+        self.records = pd.read_excel(excel_path, header=0)
         logger.info("Loaded %d records from %s", len(self.records), excel_path)
         logger.debug("Columns: %s", list(self.records.columns))
 
@@ -110,6 +110,38 @@ class StegoImageDataset(Dataset):
 
         # We will lazily load features from disk when requested
         logger.info("Using lazy on-disk feature cache: %s", self.cache_dir)
+        # --- Validate and normalize paths: resolve relative paths and drop rows with missing files ---
+        kept_rows = []
+        dropped = 0
+        for i, row in self.records.iterrows():
+            raw_path = row[self.path_col]
+            # Skip NaN/missing path
+            if pd.isna(raw_path):
+                logger.warning("Dropping row %d: empty path", i)
+                dropped += 1
+                continue
+
+            p = Path(raw_path)
+            if not p.is_absolute():
+                p = (self.img_root / p).resolve()
+
+            if not p.exists():
+                # If file doesn't exist, drop the row and log it (prevents later FileNotFoundError)
+                logger.warning("Dropping row %d: file not found: %s", i, p)
+                dropped += 1
+                continue
+
+            # keep resolved absolute path (string) and label
+            kept_rows.append({self.path_col: str(p), self.label_col: row[self.label_col]})
+
+        if dropped:
+            logger.info("Dropped %d invalid/missing records while loading dataset", dropped)
+
+        # Replace records with the validated, normalized DataFrame
+        if len(kept_rows) == 0:
+            raise RuntimeError(f"No valid image paths found in {excel_path}")
+
+        self.records = pd.DataFrame(kept_rows).reset_index(drop=True)
     
     def precompute_cache(self, start=0, end=None):
         """

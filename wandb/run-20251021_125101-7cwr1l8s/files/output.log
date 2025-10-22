@@ -1,0 +1,79 @@
+INFO:__main__:DataLoader settings: num_workers=0, pin_memory=True, batch_size=8
+INFO:__main__:Dataset splits: Train=1506 Val=322 Test=324
+[34m[1mwandb[0m: wandb.init() called while a run is active and reinit is set to 'default', so returning the previous run.
+INFO:__main__:Initialized wandb run: obvious_and_subtle_detection
+INFO:__main__:Model architecture:
+StegoDetectionCNN(
+  (network): Sequential(
+    (0): Linear(in_features=210, out_features=512, bias=True)
+    (1): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): Dropout(p=0.5, inplace=False)
+    (4): Linear(in_features=512, out_features=256, bias=True)
+    (5): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): ReLU(inplace=True)
+    (7): Dropout(p=0.5, inplace=False)
+    (8): Linear(in_features=256, out_features=128, bias=True)
+    (9): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (10): ReLU(inplace=True)
+    (11): Dropout(p=0.5, inplace=False)
+    (12): Linear(in_features=128, out_features=64, bias=True)
+    (13): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (14): ReLU(inplace=True)
+    (15): Dropout(p=0.5, inplace=False)
+    (16): Linear(in_features=64, out_features=2, bias=True)
+  )
+)
+INFO:__main__:Total parameters: 282562
+INFO:__main__:Starting training...
+INFO:__main__:Epoch 1/5
+Training: 100%|█████████████████████████████████████████████████| 189/189 [00:01<00:00, 102.71it/s, loss=0.7, acc=42.6]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 206.03it/s]
+INFO:__main__:Train Loss: 0.8628, Train Acc: 42.56%
+INFO:__main__:Val Loss: 0.7938, Val Acc: 1.86%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+[34m[1mwandb[0m: [33mWARNING[0m Saving files without folders. If you want to preserve subdirectories pass base_path to wandb.save, i.e. wandb.save("/mnt/folder/file.h5", base_path="/mnt")
+INFO:__main__:Epoch 2/5
+Training: 100%|██████████████████████████████████████████████████| 189/189 [00:01<00:00, 124.23it/s, loss=1.16, acc=45]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 222.57it/s]
+INFO:__main__:Train Loss: 0.8357, Train Acc: 45.02%
+INFO:__main__:Val Loss: 0.7110, Val Acc: 45.03%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 3/5
+Training: 100%|███████████████████████████████████████████████| 189/189 [00:01<00:00, 122.27it/s, loss=0.804, acc=50.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 237.36it/s]
+INFO:__main__:Train Loss: 0.7823, Train Acc: 50.07%
+INFO:__main__:Val Loss: 0.7807, Val Acc: 10.56%
+INFO:__main__:Epoch 4/5
+Training: 100%|███████████████████████████████████████████████| 189/189 [00:01<00:00, 100.25it/s, loss=0.811, acc=55.2]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 183.75it/s]
+INFO:__main__:Train Loss: 0.7354, Train Acc: 55.25%
+INFO:__main__:Val Loss: 0.7314, Val Acc: 19.57%
+INFO:__main__:Epoch 5/5
+Training: 100%|█████████████████████████████████████████████████| 189/189 [00:01<00:00, 104.90it/s, loss=0.596, acc=60]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 193.90it/s]
+INFO:__main__:Train Loss: 0.6739, Train Acc: 59.96%
+INFO:__main__:Val Loss: 0.6743, Val Acc: 65.53%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Loaded best model from /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth for evaluation
+INFO:__main__:Saved training history to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/training_history.png
+INFO:__main__:==================================================
+INFO:__main__:EVALUATION ON TEST SET
+INFO:__main__:==================================================
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 205.92it/s]
+INFO:__main__:Test Loss: 0.6789
+INFO:__main__:Test Accuracy: 60.49%
+INFO:__main__:--------------------------------------------------
+INFO:__main__:Classification Report:
+               precision    recall  f1-score   support
+
+        Clean       0.00      0.00      0.00         0
+Steganography       1.00      0.60      0.75       324
+
+     accuracy                           0.60       324
+    macro avg       0.50      0.30      0.38       324
+ weighted avg       1.00      0.60      0.75       324
+
+INFO:__main__:Saved confusion matrix to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/confusion_matrix.png
+WARNING:__main__:Skipping ROC/AUC: only one class present in labels ([1])
+INFO:__main__:Saved final model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/final_stego_model.pth

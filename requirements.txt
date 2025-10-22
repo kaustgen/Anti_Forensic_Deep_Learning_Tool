@@ -1,6 +1,0 @@
-pandas
-openpyxl
-pillow
-scikit-learn
-torch
-torchvision

@@ -1,0 +1,81 @@
+_wandb:
+    value:
+        cli_version: 0.22.2
+        e:
+            wzcizcsisjrsl0b4lj4hjphr3rkbd2yq:
+                codePath: Stegnography/sten_dct_cnn_train.py
+                codePathLocal: Stegnography/sten_dct_cnn_train.py
+                cpu_count: 10
+                cpu_count_logical: 20
+                cudaVersion: "13.0"
+                disk:
+                    /:
+                        total: "1081101176832"
+                        used: "117999185920"
+                email: kaustgen@hawk.iit.edu
+                executable: /home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/bin/python3
+                git:
+                    commit: 5377e0f65f8f498d89a26eb61a00a033a56c7867
+                    remote: https://github.com/kaustgen/Anti_Forensic_Deep_Learning_Tool.git
+                gpu: NVIDIA GeForce RTX 3080 Laptop GPU
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ampere
+                      memoryTotal: "17179869184"
+                      name: NVIDIA GeForce RTX 3080 Laptop GPU
+                      uuid: GPU-91b97b21-30d1-9b4c-546c-6ed950a08945
+                host: KLap
+                memory:
+                    total: "16637079552"
+                os: Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39
+                program: /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct_cnn_train.py
+                python: CPython 3.13.5
+                root: /home/kdaus/Anti_Forensic_Deep_Learning_Tool
+                startedAt: "2025-10-21T22:21:57.850010Z"
+                writerId: wzcizcsisjrsl0b4lj4hjphr3rkbd2yq
+        m: []
+        python_version: 3.13.5
+        t:
+            "1":
+                - 1
+                - 5
+                - 41
+                - 53
+            "2":
+                - 1
+                - 5
+                - 41
+                - 53
+            "3":
+                - 1
+                - 2
+                - 3
+                - 13
+                - 16
+            "4": 3.13.5
+            "5": 0.22.2
+            "12": 0.22.2
+            "13": linux-x86_64
+batch_size:
+    value: 16
+dct_channels:
+    value:
+        - "Y"
+        - Cb
+        - Cr
+device:
+    value: cuda
+epochs:
+    value: 50
+learning_rate:
+    value: 0.0001
+model:
+    value: CNNSpatial
+target_blocks:
+    value:
+        - 32
+        - 32
+total_params:
+    value: 4962946
+trainable_params:
+    value: 4962946

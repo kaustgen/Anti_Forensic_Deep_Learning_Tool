@@ -1,0 +1,219 @@
+INFO:__main__:DataLoader settings: num_workers=0, pin_memory=True, batch_size=32
+INFO:__main__:Dataset splits: Train=1883 Val=403 Test=405
+[34m[1mwandb[0m: wandb.init() called while a run is active and reinit is set to 'default', so returning the previous run.
+INFO:__main__:Initialized wandb run: obvious_and_subtle_detection
+INFO:__main__:Model architecture:
+StegoDetectionCNN(
+  (network): Sequential(
+    (0): Linear(in_features=210, out_features=512, bias=True)
+    (1): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): Dropout(p=0.5, inplace=False)
+    (4): Linear(in_features=512, out_features=256, bias=True)
+    (5): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): ReLU(inplace=True)
+    (7): Dropout(p=0.5, inplace=False)
+    (8): Linear(in_features=256, out_features=128, bias=True)
+    (9): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (10): ReLU(inplace=True)
+    (11): Dropout(p=0.5, inplace=False)
+    (12): Linear(in_features=128, out_features=64, bias=True)
+    (13): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (14): ReLU(inplace=True)
+    (15): Dropout(p=0.5, inplace=False)
+    (16): Linear(in_features=64, out_features=2, bias=True)
+  )
+)
+INFO:__main__:Total parameters: 282562
+INFO:__main__:Starting training...
+INFO:__main__:Epoch 1/100
+Training:  14%|██████▋                                          | 8/59 [57:37<5:59:15, 422.66s/it, loss=0.74, acc=68.4]/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/lib/python3.13/site-packages/PIL/Image.py:3432: DecompressionBombWarning: Image size (152046936 pixels) exceeds limit of 89478485 pixels, could be decompression bomb DOS attack.
+  warnings.warn(
+Training: 100%|███████████████████████████████████████████████| 59/59 [5:01:38<00:00, 306.75s/it, loss=0.401, acc=76.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [22:03<00:00, 101.82s/it]
+INFO:__main__:Train Loss: 0.5691, Train Acc: 76.10%
+INFO:__main__:Val Loss: 0.4871, Val Acc: 82.88%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+[34m[1mwandb[0m: [33mWARNING[0m Saving files without folders. If you want to preserve subdirectories pass base_path to wandb.save, i.e. wandb.save("/mnt/folder/file.h5", base_path="/mnt")
+INFO:__main__:Epoch 2/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 59.52it/s, loss=0.707, acc=79.8]
+Validating: 100%|██████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 90.53it/s]
+INFO:__main__:Train Loss: 0.5405, Train Acc: 79.82%
+INFO:__main__:Val Loss: 0.4866, Val Acc: 82.88%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 3/100
+Training: 100%|███████████████████████████████████████████████████| 59/59 [00:00<00:00, 68.38it/s, loss=0.55, acc=79.5]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 109.20it/s]
+INFO:__main__:Train Loss: 0.5333, Train Acc: 79.50%
+INFO:__main__:Val Loss: 0.4790, Val Acc: 82.88%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 4/100
+Training: 100%|████████████████████████████████████████████████████| 59/59 [00:00<00:00, 66.18it/s, loss=0.656, acc=80]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 106.49it/s]
+INFO:__main__:Train Loss: 0.5169, Train Acc: 79.98%
+INFO:__main__:Val Loss: 0.4792, Val Acc: 82.88%
+INFO:__main__:Epoch 5/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 66.50it/s, loss=0.546, acc=79.8]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 109.59it/s]
+INFO:__main__:Train Loss: 0.5222, Train Acc: 79.82%
+INFO:__main__:Val Loss: 0.4698, Val Acc: 82.88%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 6/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 60.21it/s, loss=0.371, acc=80.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 113.50it/s]
+INFO:__main__:Train Loss: 0.5202, Train Acc: 80.14%
+INFO:__main__:Val Loss: 0.4700, Val Acc: 82.88%
+INFO:__main__:Epoch 7/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 69.38it/s, loss=0.536, acc=80.1]
+Validating: 100%|██████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 80.80it/s]
+INFO:__main__:Train Loss: 0.5144, Train Acc: 80.08%
+INFO:__main__:Val Loss: 0.4762, Val Acc: 82.88%
+INFO:__main__:Epoch 8/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 75.02it/s, loss=0.449, acc=80.1]
+Validating: 100%|██████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 98.72it/s]
+INFO:__main__:Train Loss: 0.5048, Train Acc: 80.14%
+INFO:__main__:Val Loss: 0.4710, Val Acc: 82.88%
+INFO:__main__:Epoch 9/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 69.98it/s, loss=0.448, acc=80.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 113.92it/s]
+INFO:__main__:Train Loss: 0.5128, Train Acc: 80.14%
+INFO:__main__:Val Loss: 0.4675, Val Acc: 82.88%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 10/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 72.08it/s, loss=0.786, acc=80.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 114.53it/s]
+INFO:__main__:Train Loss: 0.5178, Train Acc: 80.14%
+INFO:__main__:Val Loss: 0.4651, Val Acc: 82.88%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 11/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 71.53it/s, loss=0.618, acc=80.2]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 110.61it/s]
+INFO:__main__:Train Loss: 0.5058, Train Acc: 80.19%
+INFO:__main__:Val Loss: 0.4632, Val Acc: 82.88%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 12/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 68.84it/s, loss=0.617, acc=80.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 104.96it/s]
+INFO:__main__:Train Loss: 0.5065, Train Acc: 80.14%
+INFO:__main__:Val Loss: 0.4645, Val Acc: 82.88%
+INFO:__main__:Epoch 13/100
+Training: 100%|███████████████████████████████████████████████████| 59/59 [00:00<00:00, 70.04it/s, loss=0.55, acc=80.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 107.73it/s]
+INFO:__main__:Train Loss: 0.5108, Train Acc: 80.14%
+INFO:__main__:Val Loss: 0.4649, Val Acc: 82.88%
+INFO:__main__:Epoch 14/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 71.69it/s, loss=0.548, acc=80.1]
+Validating: 100%|██████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 86.36it/s]
+INFO:__main__:Train Loss: 0.5071, Train Acc: 80.14%
+INFO:__main__:Val Loss: 0.4683, Val Acc: 82.88%
+INFO:__main__:Epoch 15/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 73.01it/s, loss=0.489, acc=80.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 108.39it/s]
+INFO:__main__:Train Loss: 0.5064, Train Acc: 80.14%
+INFO:__main__:Val Loss: 0.4676, Val Acc: 82.88%
+INFO:__main__:Epoch 16/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 68.39it/s, loss=0.628, acc=80.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 113.77it/s]
+INFO:__main__:Train Loss: 0.5113, Train Acc: 80.14%
+INFO:__main__:Val Loss: 0.4673, Val Acc: 82.88%
+INFO:__main__:Epoch 17/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 67.63it/s, loss=0.462, acc=80.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 104.50it/s]
+INFO:__main__:Train Loss: 0.5017, Train Acc: 80.14%
+INFO:__main__:Val Loss: 0.4667, Val Acc: 82.88%
+INFO:__main__:Epoch 18/100
+Training: 100%|███████████████████████████████████████████████████| 59/59 [00:00<00:00, 71.85it/s, loss=0.54, acc=80.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 111.55it/s]
+INFO:__main__:Train Loss: 0.5054, Train Acc: 80.14%
+INFO:__main__:Val Loss: 0.4663, Val Acc: 82.88%
+INFO:__main__:Epoch 19/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 68.40it/s, loss=0.512, acc=80.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 113.77it/s]
+INFO:__main__:Train Loss: 0.5080, Train Acc: 80.14%
+INFO:__main__:Val Loss: 0.4681, Val Acc: 82.88%
+INFO:__main__:Epoch 20/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 71.69it/s, loss=0.486, acc=80.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 115.74it/s]
+INFO:__main__:Train Loss: 0.5022, Train Acc: 80.14%
+INFO:__main__:Val Loss: 0.4649, Val Acc: 82.88%
+INFO:__main__:Epoch 21/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 68.06it/s, loss=0.506, acc=80.1]
+Validating: 100%|██████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 85.50it/s]
+INFO:__main__:Train Loss: 0.5059, Train Acc: 80.14%
+INFO:__main__:Val Loss: 0.4678, Val Acc: 82.88%
+INFO:__main__:Epoch 22/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 71.84it/s, loss=0.525, acc=80.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 111.42it/s]
+INFO:__main__:Train Loss: 0.5053, Train Acc: 80.14%
+INFO:__main__:Val Loss: 0.4656, Val Acc: 82.88%
+INFO:__main__:Epoch 23/100
+Training: 100%|███████████████████████████████████████████████████| 59/59 [00:00<00:00, 68.53it/s, loss=0.66, acc=80.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 113.18it/s]
+INFO:__main__:Train Loss: 0.5029, Train Acc: 80.14%
+INFO:__main__:Val Loss: 0.4673, Val Acc: 82.88%
+INFO:__main__:Epoch 24/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 63.58it/s, loss=0.776, acc=80.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 113.56it/s]
+INFO:__main__:Train Loss: 0.5005, Train Acc: 80.14%
+INFO:__main__:Val Loss: 0.4657, Val Acc: 82.88%
+INFO:__main__:Epoch 25/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 71.57it/s, loss=0.432, acc=80.1]
+Validating: 100%|██████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 91.20it/s]
+INFO:__main__:Train Loss: 0.5003, Train Acc: 80.14%
+INFO:__main__:Val Loss: 0.4662, Val Acc: 82.88%
+INFO:__main__:Epoch 26/100
+Training: 100%|██████████████████████████████████████████████████| 59/59 [00:00<00:00, 70.61it/s, loss=0.454, acc=80.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 13/13 [00:00<00:00, 109.01it/s]
+INFO:__main__:Train Loss: 0.5047, Train Acc: 80.14%
+INFO:__main__:Val Loss: 0.4678, Val Acc: 82.88%
+INFO:__main__:Early stopping triggered after 26 epochs
+INFO:__main__:Loaded best model from /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth for evaluation
+INFO:__main__:Saved training history to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/training_history.png
+INFO:__main__:==================================================
+INFO:__main__:EVALUATION ON TEST SET
+INFO:__main__:==================================================
+Validating:  69%|█████████████████████████████████████████████████▏                     | 9/13 [10:08<01:58, 29.74s/it]ERROR:sten_dct:Failed to compute features for /home/kdaus/Anti_Forensic_Deep_Learning_Tool/File Path
+Traceback (most recent call last):
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct.py", line 398, in __getitem__
+    img = self._load_image(img_path)
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct.py", line 157, in _load_image
+    img = Image.open(p).convert('RGB')
+          ~~~~~~~~~~^^^
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/lib/python3.13/site-packages/PIL/Image.py", line 3493, in open
+    fp = builtins.open(filename, "rb")
+FileNotFoundError: [Errno 2] No such file or directory: '/home/kdaus/Anti_Forensic_Deep_Learning_Tool/File Path'
+Validating:  69%|█████████████████████████████████████████████████▏                     | 9/13 [10:38<04:43, 70.99s/it]
+Traceback (most recent call last):
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct_train.py", line 536, in <module>
+    main()
+    ~~~~^^
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct_train.py", line 473, in main
+    results = trainer.evaluate(test_loader)
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct_train.py", line 250, in evaluate
+    test_loss, test_acc, labels, predictions, probs = self.validate(test_loader)
+                                                      ~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct_train.py", line 133, in validate
+    for features, labels in tqdm(val_loader, desc='Validating'):
+                            ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/lib/python3.13/site-packages/tqdm/std.py", line 1181, in __iter__
+    for obj in iterable:
+               ^^^^^^^^
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/lib/python3.13/site-packages/torch/utils/data/dataloader.py", line 732, in __next__
+    data = self._next_data()
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/lib/python3.13/site-packages/torch/utils/data/dataloader.py", line 788, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/lib/python3.13/site-packages/torch/utils/data/_utils/fetch.py", line 55, in fetch
+    return self.collate_fn(data)
+           ~~~~~~~~~~~~~~~^^^^^^
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/lib/python3.13/site-packages/torch/utils/data/_utils/collate.py", line 398, in default_collate
+    return collate(batch, collate_fn_map=default_collate_fn_map)
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/lib/python3.13/site-packages/torch/utils/data/_utils/collate.py", line 212, in collate
+    collate(samples, collate_fn_map=collate_fn_map)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/lib/python3.13/site-packages/torch/utils/data/_utils/collate.py", line 155, in collate
+    return collate_fn_map[elem_type](batch, collate_fn_map=collate_fn_map)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/lib/python3.13/site-packages/torch/utils/data/_utils/collate.py", line 272, in collate_tensor_fn
+    return torch.stack(batch, 0, out=out)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+RuntimeError: stack expects each tensor to be equal size, but got [210] at entry 0 and [0] at entry 10

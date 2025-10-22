@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
+# Author: Kaleb Austgen
+# Date: 10/21/25
+# Purpose:
 """
-simple_steg_embed_extract.py
 
 Concrete example script (non-CLI):
 - Configure COVER, SECRET, STEGO, EXTRACTED, PASSWORD at top.
@@ -17,6 +19,9 @@ import shlex
 import shutil
 import os
 import sys
+import logging
+import tempfile
+from pathlib import Path
 
 # Class of Steg_Gen
 # Inputs: 
@@ -27,13 +32,15 @@ import sys
 #   password: Encryption password
 class Steg_Gen():
     def __init__(self):
-        return 
+        # module logger
+        self.logger = logging.getLogger(__name__)
+        return
 
     # Called duing Embed to ensure steghide is installed
     # Returns error if not installed
     def _check_tool(self, name):
         if shutil.which(name) is None:
-            print(f"[ERROR] Required tool '{name}' not found in PATH. Please install it.")
+            self.logger.error("Required tool '%s' not found in PATH. Please install it.", name)
             return False
         return True
     
@@ -56,6 +63,7 @@ class Steg_Gen():
         except Exception as e:
             # If it's a timeout specifically, return a distinct error string
             if isinstance(e, subprocess.TimeoutExpired):
+                self.logger.error("Command timed out after 30s: %s", ' '.join(cmd_list))
                 return -2, "", f"Command timed out after 30s: {' '.join(cmd_list)}"
             return -1, "", str(e)
         
@@ -84,17 +92,17 @@ class Steg_Gen():
             "-q"
         ]
 
-        # Runs the command and recieves a runtimecode, the output, and an error (or "" if there was none)
+        # Runs the command and receives a runtimecode, the output, and an error (or "" if there was none)
         rc, out, err = self._run(cmd, capture_output=True)
         if rc == 0:
-            print(f"[OK] Embedded '{secret}' into '{stego}'.")
+            pass
+            #self.logger.info("Embedded '%s' into '%s'.", secret, stego)
         else:
             if rc == -2:
-                print(f"[ERROR] steghide embed timed out: {err}")
+                self.logger.warning("steghide embed timed out: %s", err)
             else:
-                print(f"[ERROR] steghide embed failed (rc={rc}).")
-                print(err or out)
-            raise SystemExit(1)
+                self.logger.warning("steghide embed failed (rc=%s). Output: %s  Err: %s", rc, out, err)
+            raise RuntimeError(f"steghide embed failed with return code {rc}")
         
     def _extract(self, stego: str, password: str, out_path: str):
         if not self._check_tool("steghide"):
@@ -115,14 +123,14 @@ class Steg_Gen():
         ]
         rc, out, err = self._run(cmd, capture_output=True)
         if rc == 0:
-            print(f"[OK] Extracted embedded file to '{out_path}'.")
+            pass
+            #self.logger.info("Extracted embedded file to '%s'.", out_path)
         else:
             if rc == -2:
-                print(f"[ERROR] steghide extract timed out: {err}")
+                self.logger.warning("steghide extract timed out: %s", err)
             else:
-                print(f"[ERROR] steghide extract failed (rc={rc}).")
-                print(err or out)
-            raise SystemExit(1)
+                self.logger.warning("steghide extract failed (rc=%s). Output: %s  Err: %s", rc, out, err)
+            raise RuntimeError(f"steghide extract failed with return code {rc}")
         
     # Inputs: 
     #   cover: File path of item that the secret will be hidden in
@@ -135,28 +143,51 @@ class Steg_Gen():
         and output. Takes a file that will contain the secret, a file that is the secret, and outputs what looks
         like the original cover but now contains a secret, will extract the secret and uses a password to encrypt it"""
 
-        #print("== steghide automation (concrete example) ==")
-        print(f"Cover:    {cover}")
-        print(f"Secret:   {secret}")
-        print(f"Stego out:{stego}")
-        print(f"Extracted:{extracted}")
-        print("Password: (hidden in script variable)")
+        # self.logger.info("Cover: %s", cover)
+        # self.logger.info("Secret: %s", secret)
+        # self.logger.info("Stego out: %s", stego)
+        # self.logger.info("Extracted: %s", extracted)
 
-        # 1) Embed
-        self._embed(cover, secret, stego, password)
+        # Embed
+        try:
+            self._embed(cover, secret, stego, password)
+        # Exit early if there is an error (e.g., cover file too small)
+        except (SystemExit, Exception) as e:
+            self.logger.warning("Embedding failed, skipping this file: %s", e)
+            return 
 
-        # 2) Extract using same password
-        self._extract(stego, password, extracted)
+        # Extract using same password to a temporary file so we don't persist recovered secrets
+        temp_path = None
+        try:
+            # create a temp file path (closed immediately) — suffix can be .pdf by default
+            tf = tempfile.NamedTemporaryFile(delete=False, suffix='.pdf')
+            temp_path = tf.name
+            tf.close()
 
-        # 3) Quick verify: check extracted file size > 0 and matches original size
-        if os.path.isfile(extracted):
-            orig_size = os.path.getsize(secret)
-            ext_size = os.path.getsize(extracted)
-            print(f"[INFO] original size={orig_size} bytes, extracted size={ext_size} bytes")
-            if orig_size == ext_size:
-                print("[VERIFY] sizes match — likely successful byte-for-byte extraction.")
+            self._extract(stego, password, temp_path)
+
+            # 3) Quick verify: check extracted file size > 0 and matches original size
+            if temp_path and os.path.isfile(temp_path):
+                try:
+                    orig_size = os.path.getsize(secret)
+                    ext_size = os.path.getsize(temp_path)
+                    #self.logger.info("original size=%d bytes, extracted size=%d bytes", orig_size, ext_size)
+                    if orig_size == ext_size:
+                        pass
+                        #self.logger.info("sizes match — likely successful byte-for-byte extraction.")
+                    else:
+                        self.logger.warning("sizes differ — inspect the extracted file.")
+                except Exception as e:
+                    self.logger.warning("Could not compare sizes of secret and extracted file: %s", e)
             else:
-                print("[VERIFY] sizes differ — inspect the extracted file.")
-        else:
-            print("[VERIFY] extracted file not found.")
+                self.logger.warning("extracted file not found (temp extraction failed).")
+        finally:
+            # Always try to remove the temporary extracted file so no recovered secrets remain on disk
+            if temp_path:
+                try:
+                    os.remove(temp_path)
+                    self.logger.debug("Removed temporary extracted file %s", temp_path)
+                except Exception:
+                    # best-effort removal only
+                    self.logger.debug("Failed to remove temporary extracted file %s", temp_path)
 

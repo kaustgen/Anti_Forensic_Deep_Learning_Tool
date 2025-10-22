@@ -1,0 +1,70 @@
+INFO:__main__:DataLoader settings: num_workers=0, pin_memory=True, batch_size=32
+INFO:__main__:Dataset splits: Train=1883 Val=403 Test=405
+[34m[1mwandb[0m: wandb.init() called while a run is active and reinit is set to 'default', so returning the previous run.
+INFO:__main__:Initialized wandb run: obvious_and_subtle_detection
+INFO:__main__:Model architecture:
+StegoDetectionCNN(
+  (network): Sequential(
+    (0): Linear(in_features=210, out_features=512, bias=True)
+    (1): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): Dropout(p=0.5, inplace=False)
+    (4): Linear(in_features=512, out_features=256, bias=True)
+    (5): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): ReLU(inplace=True)
+    (7): Dropout(p=0.5, inplace=False)
+    (8): Linear(in_features=256, out_features=128, bias=True)
+    (9): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (10): ReLU(inplace=True)
+    (11): Dropout(p=0.5, inplace=False)
+    (12): Linear(in_features=128, out_features=64, bias=True)
+    (13): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (14): ReLU(inplace=True)
+    (15): Dropout(p=0.5, inplace=False)
+    (16): Linear(in_features=64, out_features=2, bias=True)
+  )
+)
+INFO:__main__:Total parameters: 282562
+INFO:__main__:Starting training...
+INFO:__main__:Epoch 1/100
+Training:   0%|                                                                                 | 0/59 [00:10<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct_train.py", line 536, in <module>
+    main()
+    ~~~~^^
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct_train.py", line 462, in main
+    trainer.train(
+    ~~~~~~~~~~~~~^
+        train_loader=train_loader,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        early_stop_patience=15
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct_train.py", line 165, in train
+    train_loss, train_acc = self.train_epoch(train_loader)
+                            ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct_train.py", line 93, in train_epoch
+    for features, labels in pbar:
+                            ^^^^
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/lib/python3.13/site-packages/tqdm/std.py", line 1181, in __iter__
+    for obj in iterable:
+               ^^^^^^^^
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/lib/python3.13/site-packages/torch/utils/data/dataloader.py", line 732, in __next__
+    data = self._next_data()
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/lib/python3.13/site-packages/torch/utils/data/dataloader.py", line 788, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/lib/python3.13/site-packages/torch/utils/data/_utils/fetch.py", line 50, in fetch
+    data = self.dataset.__getitems__(possibly_batched_index)
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/lib/python3.13/site-packages/torch/utils/data/dataset.py", line 416, in __getitems__
+    return [self.dataset[self.indices[idx]] for idx in indices]
+            ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct.py", line 399, in __getitem__
+    features = self._extract_dct_features(img_path, img)
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct.py", line 349, in _extract_dct_features
+    co_oc_features = self._extract_dct_cooccurence(coef_arrays)
+  File "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct.py", line 307, in _extract_dct_cooccurence
+    co_oc_h[a, b] += 1
+    ~~~~~~~^^^^^^
+KeyboardInterrupt

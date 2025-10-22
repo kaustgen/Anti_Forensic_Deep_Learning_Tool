@@ -1,0 +1,219 @@
+INFO:__main__:DataLoader settings: num_workers=0, pin_memory=True, batch_size=8
+INFO:__main__:Dataset splits: Train=1506 Val=322 Test=324
+[34m[1mwandb[0m: wandb.init() called while a run is active and reinit is set to 'default', so returning the previous run.
+INFO:__main__:Initialized wandb run: obvious_and_subtle_detection
+INFO:__main__:Model architecture:
+StegoDetectionCNN(
+  (network): Sequential(
+    (0): Linear(in_features=210, out_features=512, bias=True)
+    (1): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): Dropout(p=0.5, inplace=False)
+    (4): Linear(in_features=512, out_features=256, bias=True)
+    (5): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): ReLU(inplace=True)
+    (7): Dropout(p=0.5, inplace=False)
+    (8): Linear(in_features=256, out_features=128, bias=True)
+    (9): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (10): ReLU(inplace=True)
+    (11): Dropout(p=0.5, inplace=False)
+    (12): Linear(in_features=128, out_features=64, bias=True)
+    (13): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (14): ReLU(inplace=True)
+    (15): Dropout(p=0.5, inplace=False)
+    (16): Linear(in_features=64, out_features=2, bias=True)
+  )
+)
+INFO:__main__:Total parameters: 282562
+INFO:__main__:Starting training...
+INFO:__main__:Epoch 1/100
+Training: 100%|███████████████████████████████████████████████| 189/189 [00:01<00:00, 105.67it/s, loss=0.338, acc=62.7]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 211.57it/s]
+INFO:__main__:Train Loss: 0.6467, Train Acc: 62.68%
+INFO:__main__:Val Loss: 0.5513, Val Acc: 99.38%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+[34m[1mwandb[0m: [33mWARNING[0m Saving files without folders. If you want to preserve subdirectories pass base_path to wandb.save, i.e. wandb.save("/mnt/folder/file.h5", base_path="/mnt")
+INFO:__main__:Epoch 2/100
+Training: 100%|███████████████████████████████████████████████| 189/189 [00:01<00:00, 118.56it/s, loss=0.382, acc=69.9]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 231.54it/s]
+INFO:__main__:Train Loss: 0.5919, Train Acc: 69.92%
+INFO:__main__:Val Loss: 0.5364, Val Acc: 100.00%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 3/100
+Training: 100%|█████████████████████████████████████████████████| 189/189 [00:01<00:00, 103.91it/s, loss=0.471, acc=72]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 184.19it/s]
+INFO:__main__:Train Loss: 0.5641, Train Acc: 71.98%
+INFO:__main__:Val Loss: 0.5338, Val Acc: 100.00%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 4/100
+Training: 100%|████████████████████████████████████████████████| 189/189 [00:01<00:00, 95.72it/s, loss=0.283, acc=74.7]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 189.48it/s]
+INFO:__main__:Train Loss: 0.5355, Train Acc: 74.70%
+INFO:__main__:Val Loss: 0.5038, Val Acc: 100.00%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 5/100
+Training: 100%|████████████████████████████████████████████████| 189/189 [00:04<00:00, 39.95it/s, loss=0.304, acc=79.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 181.17it/s]
+INFO:__main__:Train Loss: 0.5020, Train Acc: 79.08%
+INFO:__main__:Val Loss: 0.5170, Val Acc: 100.00%
+INFO:__main__:Epoch 6/100
+Training: 100%|████████████████████████████████████████████████| 189/189 [00:02<00:00, 93.30it/s, loss=0.496, acc=81.9]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 184.50it/s]
+INFO:__main__:Train Loss: 0.4758, Train Acc: 81.87%
+INFO:__main__:Val Loss: 0.4951, Val Acc: 100.00%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 7/100
+Training: 100%|████████████████████████████████████████████████| 189/189 [00:02<00:00, 90.80it/s, loss=0.152, acc=86.5]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 169.43it/s]
+INFO:__main__:Train Loss: 0.4294, Train Acc: 86.52%
+INFO:__main__:Val Loss: 0.5004, Val Acc: 100.00%
+INFO:__main__:Epoch 8/100
+Training: 100%|█████████████████████████████████████████████████| 189/189 [00:02<00:00, 88.04it/s, loss=0.21, acc=87.8]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 167.20it/s]
+INFO:__main__:Train Loss: 0.4229, Train Acc: 87.85%
+INFO:__main__:Val Loss: 0.4626, Val Acc: 100.00%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 9/100
+Training: 100%|████████████████████████████████████████████████| 189/189 [00:01<00:00, 96.29it/s, loss=0.222, acc=88.5]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 187.28it/s]
+INFO:__main__:Train Loss: 0.3948, Train Acc: 88.51%
+INFO:__main__:Val Loss: 0.4472, Val Acc: 100.00%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 10/100
+Training: 100%|███████████████████████████████████████████████| 189/189 [00:01<00:00, 101.71it/s, loss=0.186, acc=91.4]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 175.83it/s]
+INFO:__main__:Train Loss: 0.3660, Train Acc: 91.37%
+INFO:__main__:Val Loss: 0.4434, Val Acc: 100.00%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 11/100
+Training: 100%|████████████████████████████████████████████████| 189/189 [00:02<00:00, 91.10it/s, loss=0.282, acc=92.7]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 150.46it/s]
+INFO:__main__:Train Loss: 0.3433, Train Acc: 92.70%
+INFO:__main__:Val Loss: 0.4223, Val Acc: 100.00%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 12/100
+Training: 100%|█████████████████████████████████████████████████| 189/189 [00:02<00:00, 90.12it/s, loss=0.14, acc=94.6]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 210.17it/s]
+INFO:__main__:Train Loss: 0.3213, Train Acc: 94.56%
+INFO:__main__:Val Loss: 0.3932, Val Acc: 100.00%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 13/100
+Training: 100%|████████████████████████████████████████████████| 189/189 [00:01<00:00, 96.93it/s, loss=0.123, acc=96.5]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 204.29it/s]
+INFO:__main__:Train Loss: 0.3064, Train Acc: 96.48%
+INFO:__main__:Val Loss: 0.4104, Val Acc: 100.00%
+INFO:__main__:Epoch 14/100
+Training: 100%|███████████████████████████████████████████████| 189/189 [00:01<00:00, 96.12it/s, loss=0.0802, acc=95.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 156.18it/s]
+INFO:__main__:Train Loss: 0.2976, Train Acc: 95.09%
+INFO:__main__:Val Loss: 0.3850, Val Acc: 100.00%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 15/100
+Training: 100%|████████████████████████████████████████████████| 189/189 [00:02<00:00, 84.51it/s, loss=0.158, acc=97.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 161.24it/s]
+INFO:__main__:Train Loss: 0.2729, Train Acc: 97.08%
+INFO:__main__:Val Loss: 0.3497, Val Acc: 100.00%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 16/100
+Training: 100%|████████████████████████████████████████████████| 189/189 [00:01<00:00, 96.24it/s, loss=0.321, acc=96.6]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 243.05it/s]
+INFO:__main__:Train Loss: 0.2722, Train Acc: 96.61%
+INFO:__main__:Val Loss: 0.3567, Val Acc: 100.00%
+INFO:__main__:Epoch 17/100
+Training: 100%|█████████████████████████████████████████████████| 189/189 [00:01<00:00, 96.27it/s, loss=0.15, acc=97.3]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 216.08it/s]
+INFO:__main__:Train Loss: 0.2547, Train Acc: 97.28%
+INFO:__main__:Val Loss: 0.3297, Val Acc: 100.00%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 18/100
+Training: 100%|████████████████████████████████████████████████| 189/189 [00:01<00:00, 98.17it/s, loss=0.191, acc=98.3]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 178.16it/s]
+INFO:__main__:Train Loss: 0.2341, Train Acc: 98.34%
+INFO:__main__:Val Loss: 0.3578, Val Acc: 100.00%
+INFO:__main__:Epoch 19/100
+Training: 100%|████████████████████████████████████████████████| 189/189 [00:02<00:00, 94.07it/s, loss=0.216, acc=98.9]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 207.97it/s]
+INFO:__main__:Train Loss: 0.2196, Train Acc: 98.94%
+INFO:__main__:Val Loss: 0.3253, Val Acc: 100.00%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 20/100
+Training: 100%|███████████████████████████████████████████████| 189/189 [00:04<00:00, 38.75it/s, loss=0.0889, acc=98.7]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 195.97it/s]
+INFO:__main__:Train Loss: 0.2107, Train Acc: 98.74%
+INFO:__main__:Val Loss: 0.3458, Val Acc: 100.00%
+INFO:__main__:Epoch 21/100
+Training: 100%|████████████████████████████████████████████████| 189/189 [00:01<00:00, 96.92it/s, loss=0.116, acc=99.1]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 206.92it/s]
+INFO:__main__:Train Loss: 0.1994, Train Acc: 99.07%
+INFO:__main__:Val Loss: 0.2882, Val Acc: 100.00%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 22/100
+Training: 100%|███████████████████████████████████████████████| 189/189 [00:01<00:00, 98.03it/s, loss=0.0475, acc=99.3]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 234.12it/s]
+INFO:__main__:Train Loss: 0.1865, Train Acc: 99.27%
+INFO:__main__:Val Loss: 0.3067, Val Acc: 100.00%
+INFO:__main__:Epoch 23/100
+Training: 100%|████████████████████████████████████████████████| 189/189 [00:01<00:00, 94.77it/s, loss=0.211, acc=99.4]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 161.90it/s]
+INFO:__main__:Train Loss: 0.1769, Train Acc: 99.40%
+INFO:__main__:Val Loss: 0.2648, Val Acc: 100.00%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 24/100
+Training: 100%|███████████████████████████████████████████████| 189/189 [00:02<00:00, 86.57it/s, loss=0.0783, acc=99.6]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 137.86it/s]
+INFO:__main__:Train Loss: 0.1673, Train Acc: 99.60%
+INFO:__main__:Val Loss: 0.2865, Val Acc: 100.00%
+INFO:__main__:Epoch 25/100
+Training: 100%|███████████████████████████████████████████████| 189/189 [00:01<00:00, 101.02it/s, loss=0.108, acc=99.6]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 235.52it/s]
+INFO:__main__:Train Loss: 0.1603, Train Acc: 99.60%
+INFO:__main__:Val Loss: 0.2386, Val Acc: 100.00%
+INFO:__main__:Saved best model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth
+INFO:__main__:Epoch 26/100
+Training: 100%|███████████████████████████████████████████████| 189/189 [00:01<00:00, 96.45it/s, loss=0.0419, acc=99.7]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 228.37it/s]
+INFO:__main__:Train Loss: 0.1518, Train Acc: 99.73%
+INFO:__main__:Val Loss: 0.2417, Val Acc: 100.00%
+INFO:__main__:Epoch 27/100
+Training: 100%|████████████████████████████████████████████████| 189/189 [00:01<00:00, 99.33it/s, loss=0.0356, acc=100]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 200.16it/s]
+INFO:__main__:Train Loss: 0.1447, Train Acc: 100.00%
+INFO:__main__:Val Loss: 0.2603, Val Acc: 100.00%
+INFO:__main__:Epoch 28/100
+Training: 100%|███████████████████████████████████████████████| 189/189 [00:01<00:00, 102.44it/s, loss=0.107, acc=99.9]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 205.91it/s]
+INFO:__main__:Train Loss: 0.1389, Train Acc: 99.87%
+INFO:__main__:Val Loss: 0.2405, Val Acc: 100.00%
+INFO:__main__:Epoch 29/100
+Training: 100%|████████████████████████████████████████████████| 189/189 [00:01<00:00, 98.34it/s, loss=0.0707, acc=100]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 218.93it/s]
+INFO:__main__:Train Loss: 0.1294, Train Acc: 100.00%
+INFO:__main__:Val Loss: 0.2482, Val Acc: 100.00%
+INFO:__main__:Epoch 30/100
+Training: 100%|███████████████████████████████████████████████| 189/189 [00:01<00:00, 101.36it/s, loss=0.111, acc=99.9]
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 197.02it/s]
+INFO:__main__:Train Loss: 0.1240, Train Acc: 99.87%
+INFO:__main__:Val Loss: 0.2459, Val Acc: 100.00%
+INFO:__main__:Early stopping triggered after 30 epochs
+INFO:__main__:Loaded best model from /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/best_stego_model.pth for evaluation
+INFO:__main__:Saved training history to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/training_history.png
+INFO:__main__:==================================================
+INFO:__main__:EVALUATION ON TEST SET
+INFO:__main__:==================================================
+Validating: 100%|█████████████████████████████████████████████████████████████████████| 41/41 [00:00<00:00, 237.48it/s]
+INFO:__main__:Test Loss: 0.2365
+INFO:__main__:Test Accuracy: 100.00%
+INFO:__main__:--------------------------------------------------
+INFO:__main__:Classification Report:
+               precision    recall  f1-score   support
+
+        Clean       0.00      0.00      0.00         0
+Steganography       1.00      1.00      1.00       324
+
+     accuracy                           1.00       324
+    macro avg       0.50      0.50      0.50       324
+ weighted avg       1.00      1.00      1.00       324
+
+INFO:__main__:Saved confusion matrix to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/confusion_matrix.png
+WARNING:__main__:Skipping ROC/AUC: only one class present in labels ([1])
+INFO:__main__:Saved final model to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/final_stego_model.pth

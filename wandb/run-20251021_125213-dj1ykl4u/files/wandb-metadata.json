@@ -1,0 +1,39 @@
+{
+  "os": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "CPython 3.13.5",
+  "startedAt": "2025-10-21T17:52:13.122536Z",
+  "program": "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/sten_dct_train.py",
+  "codePath": "Stegnography/sten_dct_train.py",
+  "codePathLocal": "Stegnography/sten_dct_train.py",
+  "git": {
+    "remote": "https://github.com/kaustgen/Anti_Forensic_Deep_Learning_Tool.git",
+    "commit": "5377e0f65f8f498d89a26eb61a00a033a56c7867"
+  },
+  "email": "kaustgen@hawk.iit.edu",
+  "root": "/home/kdaus/Anti_Forensic_Deep_Learning_Tool",
+  "host": "KLap",
+  "executable": "/home/kdaus/Anti_Forensic_Deep_Learning_Tool/venv/bin/python3",
+  "cpu_count": 10,
+  "cpu_count_logical": 20,
+  "gpu": "NVIDIA GeForce RTX 3080 Laptop GPU",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "1081101176832",
+      "used": "120371523584"
+    }
+  },
+  "memory": {
+    "total": "16637079552"
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA GeForce RTX 3080 Laptop GPU",
+      "memoryTotal": "17179869184",
+      "architecture": "Ampere",
+      "uuid": "GPU-91b97b21-30d1-9b4c-546c-6ed950a08945"
+    }
+  ],
+  "cudaVersion": "13.0",
+  "writerId": "cnau0t8lzvp92xxwfj7rfy0ngkh15p6m"
+}

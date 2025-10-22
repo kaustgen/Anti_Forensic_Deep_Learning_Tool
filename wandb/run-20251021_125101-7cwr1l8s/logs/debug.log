@@ -1,0 +1,25 @@
+2025-10-21 12:51:01,997 INFO    MainThread:290877 [wandb_setup.py:_flush():81] Current SDK version is 0.22.2
+2025-10-21 12:51:01,997 INFO    MainThread:290877 [wandb_setup.py:_flush():81] Configure stats pid to 290877
+2025-10-21 12:51:01,997 INFO    MainThread:290877 [wandb_setup.py:_flush():81] Loading settings from /home/kdaus/.config/wandb/settings
+2025-10-21 12:51:01,997 INFO    MainThread:290877 [wandb_setup.py:_flush():81] Loading settings from /home/kdaus/Anti_Forensic_Deep_Learning_Tool/wandb/settings
+2025-10-21 12:51:01,997 INFO    MainThread:290877 [wandb_setup.py:_flush():81] Loading settings from environment variables
+2025-10-21 12:51:01,997 INFO    MainThread:290877 [wandb_init.py:setup_run_log_directory():705] Logging user logs to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/wandb/run-20251021_125101-7cwr1l8s/logs/debug.log
+2025-10-21 12:51:01,997 INFO    MainThread:290877 [wandb_init.py:setup_run_log_directory():706] Logging internal logs to /home/kdaus/Anti_Forensic_Deep_Learning_Tool/wandb/run-20251021_125101-7cwr1l8s/logs/debug-internal.log
+2025-10-21 12:51:01,998 INFO    MainThread:290877 [wandb_init.py:init():832] calling init triggers
+2025-10-21 12:51:01,998 INFO    MainThread:290877 [wandb_init.py:init():837] wandb.init called with sweep_config: {}
+config: {'batch_size': 8, 'epochs': 5, 'learning_rate': 1e-05, 'device': 'cuda', '_wandb': {}}
+2025-10-21 12:51:01,998 INFO    MainThread:290877 [wandb_init.py:init():880] starting backend
+2025-10-21 12:51:02,203 INFO    MainThread:290877 [wandb_init.py:init():883] sending inform_init request
+2025-10-21 12:51:02,206 INFO    MainThread:290877 [wandb_init.py:init():891] backend started and connected
+2025-10-21 12:51:02,207 INFO    MainThread:290877 [wandb_init.py:init():961] updated telemetry
+2025-10-21 12:51:02,210 INFO    MainThread:290877 [wandb_init.py:init():985] communicating run to backend with 90.0 second timeout
+2025-10-21 12:51:02,831 INFO    MainThread:290877 [wandb_init.py:init():1036] starting run threads in backend
+2025-10-21 12:51:02,870 INFO    MainThread:290877 [wandb_run.py:_console_start():2509] atexit reg
+2025-10-21 12:51:02,870 INFO    MainThread:290877 [wandb_run.py:_redirect():2357] redirect: wrap_raw
+2025-10-21 12:51:02,870 INFO    MainThread:290877 [wandb_run.py:_redirect():2426] Wrapping output streams.
+2025-10-21 12:51:02,870 INFO    MainThread:290877 [wandb_run.py:_redirect():2449] Redirects installed.
+2025-10-21 12:51:02,872 INFO    MainThread:290877 [wandb_init.py:init():1076] run started, returning control to user process
+2025-10-21 12:51:02,872 INFO    MainThread:290877 [wandb_run.py:_config_callback():1392] config_cb None None {'input_dim': 210, 'dataset_size': 2152}
+2025-10-21 12:51:02,882 INFO    MainThread:290877 [wandb_watch.py:_watch():68] Watching
+2025-10-21 12:51:16,386 INFO    wandb-AsyncioManager-main:290877 [service_client.py:_forward_responses():80] Reached EOF.
+2025-10-21 12:51:16,386 INFO    wandb-AsyncioManager-main:290877 [mailbox.py:close():137] Closing mailbox, abandoning 1 handles.
