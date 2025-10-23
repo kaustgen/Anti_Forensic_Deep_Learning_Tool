@@ -120,10 +120,10 @@ def main():
     # Configuration
     EXCEL_PATH = Path(__file__).parent.parent / 'dataGen' / 'stego_training.xlsx'
     IMG_ROOT = Path('.')
-    BATCH_SIZE = 32  # Can be larger since CNN processes spatially
-    EPOCHS = 100
+    BATCH_SIZE = 16  # Can be larger since CNN processes spatially
+    EPOCHS = 250
     EARLY_STOP_PATIENCE = 10
-    LEARNING_RATE = 0.001
+    LEARNING_RATE = 1e-2
     DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
     TARGET_BLOCKS = (32, 32)  # 32×32 blocks = 256×256 pixels
     
@@ -257,6 +257,18 @@ def main():
     
     # Evaluate
     results = trainer.evaluate(test_loader, save_plots=True)
+    
+    # Log test metrics to wandb
+    if wandb is not None and wandb_run is not None:
+        try:
+            wandb.log({
+                'test_loss': results['test_loss'],
+                'test_accuracy': results['test_acc'],
+                'final_test_acc': results['test_acc'],  # Also log with explicit name
+            })
+            logger.info("Logged test metrics to wandb")
+        except Exception:
+            logger.exception('Failed to log test metrics to wandb')
     
     # Save final model
     final_path = MODEL_DIR / f'final_stego_model_{model_name}.pth'

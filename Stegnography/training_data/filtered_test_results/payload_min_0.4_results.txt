@@ -1,0 +1,39 @@
+PAYLOAD-FILTERED MODEL TESTING RESULTS
+============================================================
+
+Model: /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/training_data/best_stego_model.pth
+Dataset: /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/training_data/../../dataGen/stego_training.xlsx
+Payload filter: min=None, max=0.4
+
+Dataset Statistics:
+  Total images: 15484
+  Total clean images: 7681
+  Total stego images: 7803
+  Filtered images: 5742 (Clean: 2871, Stego: 2871)
+  Stego payload range: [-1.033636, 0.395990]
+  Mean payload: 0.308430
+  Median payload: 0.318314
+  Std payload: 0.071681
+
+Evaluation Results:
+  Loss: 0.2068
+  Accuracy: 97.84%
+  AUC: 0.9847
+
+============================================================
+
+Classification Report:
+               precision    recall  f1-score   support
+
+        Clean       1.00      0.96      0.98      2871
+Steganography       0.96      1.00      0.98      2871
+
+     accuracy                           0.98      5742
+    macro avg       0.98      0.98      0.98      5742
+ weighted avg       0.98      0.98      0.98      5742
+
+============================================================
+
+Confusion Matrix:
+  [2754  117]
+  [   7 2864]

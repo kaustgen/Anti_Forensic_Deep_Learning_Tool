@@ -18,7 +18,10 @@ from sten_dct import StegoImageDataset
 import logging
 import os
 # Directory where this script lives; used for saving/loading models and plots
-MODEL_DIR = Path(__file__).parent
+MODEL_DIR = Path(__file__).parent / 'training_data'
+
+# Create training_data directory if it doesn't exist
+MODEL_DIR.mkdir(parents=True, exist_ok=True)
 
 # module logger
 logger = logging.getLogger(__name__)
