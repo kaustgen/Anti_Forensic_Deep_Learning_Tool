@@ -1,8 +1,13 @@
-dataGen/
+dataGen/BOSS_sten_data/
+dataGen/BOSS1.01_Dataset/
+dataGen/clean_images/
+dataGen/rgb_covers_clean/
+dataGen/rgb_covers_problematic/
 Stegnography/.dct_spatial_cache/
 Stegnography/.feature_cache/
 Stegnography/.dct_BOSS_spatial_cache/
 Stegnography/.dct_cache/
 Stegnography/.dct_BOSS_RGB_combined_cache/
+dataGen/.jpegio_cache/
 wandb/
 Stegnography/wandb/
