@@ -15,6 +15,9 @@ Adjust the global variables in main() to configure:
     - OUTPUT_DIR: Directory to save results
 """
 
+import faulthandler
+faulthandler.enable()  # Enable detailed segfault tracebacks
+
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Subset
@@ -148,8 +151,7 @@ def evaluate_filtered_subset(model, dataset, filtered_indices, device='cuda', ba
         subset,
         batch_size=batch_size,
         shuffle=False,
-        num_workers=0,
-        pin_memory=True if device.startswith('cuda') else False
+        num_workers=0
     )
     
     # Evaluate
@@ -164,27 +166,40 @@ def evaluate_filtered_subset(model, dataset, filtered_indices, device='cuda', ba
     all_predictions = []
     all_probs = []
     
-    with torch.no_grad():
-        for features, labels in loader:
-            features = features.to(device)
-            labels = labels.to(device)
-            
-            outputs = model(features)
-            loss = criterion(outputs, labels)
-            
-            running_loss += loss.item() * features.size(0)
-            _, predicted = torch.max(outputs.data, 1)
-            total += labels.size(0)
-            correct += (predicted == labels).sum().item()
-            
-            # Store for metrics
-            all_labels.extend(labels.cpu().numpy())
-            all_predictions.extend(predicted.cpu().numpy())
-            probs = torch.softmax(outputs, dim=1)
-            all_probs.extend(probs[:, 1].cpu().numpy())
+    logger.info("Starting evaluation loop...")
     
-    epoch_loss = running_loss / total
-    epoch_acc = 100. * correct / total
+    with torch.no_grad():
+        for batch_idx, (features, labels) in enumerate(loader):
+            try:
+                features = features.to(device)
+                labels = labels.to(device)
+                
+                outputs = model(features)
+                loss = criterion(outputs, labels)
+                
+                running_loss += loss.item() * features.size(0)
+                _, predicted = torch.max(outputs.data, 1)
+                total += labels.size(0)
+                correct += (predicted == labels).sum().item()
+                
+                # Store for metrics
+                all_labels.extend(labels.cpu().numpy())
+                all_predictions.extend(predicted.cpu().numpy())
+                probs = torch.softmax(outputs, dim=1)
+                all_probs.extend(probs[:, 1].cpu().numpy())
+                
+                # Log progress every 10 batches
+                if (batch_idx + 1) % 10 == 0:
+                    logger.info("  Processed %d/%d batches...", batch_idx + 1, len(loader))
+                    
+            except Exception as e:
+                logger.error("Error processing batch %d: %s", batch_idx, e)
+                raise
+    
+    logger.info("Evaluation complete!")
+    
+    epoch_loss = running_loss / total if total > 0 else 0
+    epoch_acc = 100. * correct / total if total > 0 else 0
     
     # Calculate metrics
     cm = confusion_matrix(all_labels, all_predictions, labels=[0, 1])
@@ -248,11 +263,12 @@ def main():
     
     # Payload filtering (bpp AC DCT)
     MIN_PAYLOAD = None      # Minimum payload threshold (None for no minimum)
-    MAX_PAYLOAD = 0.2       # Maximum payload threshold (None for no maximum)
+    MAX_PAYLOAD = 0.4       # Maximum payload threshold (None for no maximum)
     
     # File paths
     MODEL_PATH = 'best_stego_model.pth'                    # Path to trained model
-    EXCEL_PATH = '../../dataGen/stego_training.xlsx'       # Path to Excel with payload stats
+    #EXCEL_PATH = '../../dataGen/stego_training.xlsx'     # Path to Excel with payload stats
+    EXCEL_PATH = '../../dataGen/BOSS_stego_training.xlsx'  # Path to BOSS Excel sheet
     OUTPUT_DIR = 'filtered_test_results'                   # Output directory for results
     
     # Training parameters
@@ -368,28 +384,57 @@ def main():
     
     # Create dataset
     logger.info("Loading dataset...")
-    if dataset_type == 'spatial':
-        dataset = StegoDCTSpatialDataset(
-            excel_path,
-            Path('.'),
-            dct_channels=['Y', 'Cb', 'Cr'],
-            target_blocks=config.get('target_blocks', (32, 32))
-        )
-    
-    logger.info("Dataset loaded: %d total images", len(dataset))
+    try:
+        if dataset_type == 'spatial':
+            # Use the base directory where Excel is located
+            base_data_dir = excel_path.parent
+            
+            dataset = StegoDCTSpatialDataset(
+                excel_path,
+                base_data_dir,
+                dct_channels=['Y', 'Cb', 'Cr'],
+                target_blocks=config.get('target_blocks', (32, 32)),
+                train=False  # Disable augmentation for testing
+            )
+        
+        logger.info("Dataset loaded: %d total images", len(dataset))
+        
+        # Test loading a single sample to verify dataset works
+        logger.info("Testing dataset by loading first sample...")
+        try:
+            test_features, test_label = dataset[0]
+            logger.info("  Sample shape: %s, label: %d", test_features.shape, test_label)
+        except Exception as e:
+            logger.error("Failed to load test sample: %s", e)
+            logger.error("This indicates a problem with the dataset or file paths")
+            import traceback
+            traceback.print_exc()
+            return
+            
+    except Exception as e:
+        logger.error("Failed to create dataset: %s", e)
+        import traceback
+        traceback.print_exc()
+        return
     
     # Evaluate on filtered subset
     logger.info("="*60)
     logger.info("Evaluating model on filtered subset...")
     logger.info("="*60)
     
-    results = evaluate_filtered_subset(
-        model,
-        dataset,
-        filtered_indices,
-        device=device,
-        batch_size=BATCH_SIZE
-    )
+    try:
+        results = evaluate_filtered_subset(
+            model,
+            dataset,
+            filtered_indices,
+            device=device,
+            batch_size=BATCH_SIZE
+        )
+    except Exception as e:
+        logger.error("Evaluation failed: %s", e)
+        import traceback
+        traceback.print_exc()
+        return
     
     # Print results
     logger.info("="*60)

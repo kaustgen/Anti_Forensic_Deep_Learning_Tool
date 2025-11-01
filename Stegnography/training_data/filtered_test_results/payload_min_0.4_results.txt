@@ -2,38 +2,38 @@ PAYLOAD-FILTERED MODEL TESTING RESULTS
 ============================================================
 
 Model: /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/training_data/best_stego_model.pth
-Dataset: /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/training_data/../../dataGen/stego_training.xlsx
+Dataset: /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/training_data/../../dataGen/BOSS_stego_training.xlsx
 Payload filter: min=None, max=0.4
 
 Dataset Statistics:
-  Total images: 15484
-  Total clean images: 7681
-  Total stego images: 7803
-  Filtered images: 5742 (Clean: 2871, Stego: 2871)
-  Stego payload range: [-1.033636, 0.395990]
-  Mean payload: 0.308430
-  Median payload: 0.318314
-  Std payload: 0.071681
+  Total images: 18066
+  Total clean images: 10000
+  Total stego images: 8066
+  Filtered images: 15812 (Clean: 7906, Stego: 7906)
+  Stego payload range: [0.025697, 0.399530]
+  Mean payload: 0.157634
+  Median payload: 0.144859
+  Std payload: 0.078278
 
 Evaluation Results:
-  Loss: 0.2068
-  Accuracy: 97.84%
-  AUC: 0.9847
+  Loss: 0.6902
+  Accuracy: 53.02%
+  AUC: 0.5388
 
 ============================================================
 
 Classification Report:
                precision    recall  f1-score   support
 
-        Clean       1.00      0.96      0.98      2871
-Steganography       0.96      1.00      0.98      2871
+        Clean       0.54      0.37      0.44      7906
+Steganography       0.52      0.69      0.59      7906
 
-     accuracy                           0.98      5742
-    macro avg       0.98      0.98      0.98      5742
- weighted avg       0.98      0.98      0.98      5742
+     accuracy                           0.53     15812
+    macro avg       0.53      0.53      0.52     15812
+ weighted avg       0.53      0.53      0.52     15812
 
 ============================================================
 
 Confusion Matrix:
-  [2754  117]
-  [   7 2864]
+  [2954 4952]
+  [2477 5429]

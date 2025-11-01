@@ -4,10 +4,12 @@
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import torch.optim as optim
 from torch.utils.data import DataLoader, random_split, Subset
 from pathlib import Path
 import wandb
+import weave
 import numpy as np
 from tqdm import tqdm
 import matplotlib.pyplot as plt
@@ -18,6 +20,34 @@ from sten_dct import StegoImageDataset
 import logging
 import os
 # Directory where this script lives; used for saving/loading models and plots
+
+
+def mixup_data(x, y, alpha=0.2, device='cuda'):
+    """
+    Mix two samples with random weight to prevent overfitting and memorization.
+    
+    Args:
+        x: Input batch
+        y: Labels
+        alpha: Beta distribution parameter (0.2 = moderate mixing)
+        device: Device for tensors
+    
+    Returns:
+        Tuple of (mixed_x, y_a, y_b, lambda)
+    """
+    if alpha > 0:
+        lam = np.random.beta(alpha, alpha)
+    else:
+        lam = 1
+    
+    batch_size = x.size(0)
+    index = torch.randperm(batch_size).to(device)
+    
+    mixed_x = lam * x + (1 - lam) * x[index]
+    y_a, y_b = y, y[index]
+    return mixed_x, y_a, y_b, lam
+
+
 MODEL_DIR = Path(__file__).parent / 'training_data'
 
 # Create training_data directory if it doesn't exist
@@ -64,22 +94,67 @@ class StegoDetectionCNN(nn.Module):
     def forward(self, x):
         return self.network(x)
 
+class LabelSmoothingCrossEntropy(nn.Module):
+    """CrossEntropy with label smoothing"""
+    def __init__(self, smoothing=0.1):
+        super().__init__()
+        self.smoothing = smoothing
+        self.confidence = 1.0 - smoothing
+    
+    def forward(self, pred, target):
+        pred = pred.log_softmax(dim=-1)
+        with torch.no_grad():
+            true_dist = torch.zeros_like(pred)
+            true_dist.fill_(self.smoothing / (pred.size(-1) - 1))
+            true_dist.scatter_(1, target.unsqueeze(1), self.confidence)
+        return torch.mean(torch.sum(-true_dist * pred, dim=-1))
+
+class FocalLoss(nn.Module):
+    """Focal Loss to handle class imbalance and hard examples"""
+    def __init__(self, alpha=0.25, gamma=2.0):
+        super().__init__()
+        self.alpha = alpha
+        self.gamma = gamma
+    
+    def forward(self, inputs, targets):
+        ce_loss = F.cross_entropy(inputs, targets, reduction='none')
+        pt = torch.exp(-ce_loss)
+        focal_loss = self.alpha * (1 - pt) ** self.gamma * ce_loss
+        return focal_loss.mean()
+
 class StegoDetectionTrainer:
     """Handles training, validation, and evaluation of the stego detection model."""
 
-    def __init__(self, model, device='cuda', learning_rate=0.001, weight_decay=1e-4):
+    def __init__(self, model, device='cuda', learning_rate=0.001, weight_decay=1e-4, class_weights=None):
         self.model = model.to(device)
         self.device = device
-        # CrossEntropyLoss for multi-class classification (model outputs 2 logits, targets are class indices)
+
+        # Loss functions
+
+        # Use standard CrossEntropyLoss (FocalLoss causes mode collapse)
         self.criterion = nn.CrossEntropyLoss()
+
+        # FocalLoss attempt (DISABLED - causes model to predict all same class)
+        #self.criterion = FocalLoss(alpha=0.26, gamma=2.0)
+
+        # Custom label smoothing cross entropy class
+        #self.criterion = LabelSmoothingCrossEntropy(smoothing=0.1)
         # BCEWithLogitsLoss is for binary with single output - not appropriate for 2-logit output
         # self.criterion = nn.BCEWithLogitsLoss()
+
+        # Select a loss function depending on if the classes are weighted or not...
+        # if class_weights is not None:
+        #     self.criterion = nn.CrossEntropyLoss(weight=class_weights)
+        # else:
+        #     self.criterion = FocalLoss(alpha=0.25, gamma=2.0)
+
         # Adam
         # self.optimizer = optim.Adam(
         #     model.parameters(),
         #     lr=learning_rate,
         #     weight_decay=weight_decay
         # )
+
         # SGD optimizer with momentum and weight decay
         self.optimizer = optim.SGD(
             model.parameters(),
@@ -88,9 +163,21 @@ class StegoDetectionTrainer:
             weight_decay=weight_decay,
             nesterov=True
         )
-        self.scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-            self.optimizer, mode='min', factor=0.5, patience=5
+
+        # Cosine annealing with warm restarts
+        self.scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(
+            self.optimizer,
+            T_0=15,      # Restart every 15 epochs (increased from 10 for subtle patterns)
+            T_mult=2,    # Double period after each restart
+            eta_min=1e-6 # Minimum learning rate
         )
+
+        # self.scheduler = optim.lr_scheduler.ReduceLROnPlateau(
+        #     self.optimizer, 
+        #     factor=0.5, 
+        #     patience=3,
+        #     min_lr=1e-6
+        # )
 
         # History tracking
         self.train_losses = []
@@ -98,8 +185,9 @@ class StegoDetectionTrainer:
         self.train_accs = []
         self.val_accs= []
 
-    def train_epoch(self, train_loader):
-        """Train for one epoch."""
+    @weave.op()
+    def train_epoch(self, train_loader, use_mixup=True, mixup_alpha=0.2):
+        """Train for one epoch with optional mixup augmentation."""
         self.model.train()
         running_loss = 0.0
         correct = 0
@@ -110,20 +198,51 @@ class StegoDetectionTrainer:
             features = features.to(self.device)
             labels = labels.to(self.device)
 
-            # Forward pass
-            self.optimizer.zero_grad()
-            outputs = self.model(features)
-            loss = self.criterion(outputs, labels)
+            # Apply mixup augmentation to prevent memorization
+            if use_mixup and mixup_alpha > 0:
+                features, labels_a, labels_b, lam = mixup_data(features, labels, alpha=mixup_alpha, device=self.device)
+                
+                # Forward pass
+                self.optimizer.zero_grad()
+                outputs = self.model(features)
+                
+                # Mixup loss: weighted combination of both labels
+                loss = lam * self.criterion(outputs, labels_a) + (1 - lam) * self.criterion(outputs, labels_b)
+                
+                # Backward pass
+                loss.backward()
+                
+                # Gradient clipping to prevent exploding gradients with SGD
+                torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=1.0)
+                
+                self.optimizer.step()
 
-            # Backward pass
-            loss.backward()
-            self.optimizer.step()
+                # Statistics (use lambda-weighted accuracy)
+                running_loss += loss.item() * features.size(0)
+                _, predicted = torch.max(outputs.data, 1)
+                total += labels.size(0)
+                # Weighted correct predictions
+                correct += (lam * (predicted == labels_a).float() + (1 - lam) * (predicted == labels_b).float()).sum().item()
+            else:
+                # Standard training without mixup
+                # Forward pass
+                self.optimizer.zero_grad()
+                outputs = self.model(features)
+                loss = self.criterion(outputs, labels)
 
-            # Statistics
-            running_loss += loss.item() * features.size(0)
-            _, predicted = torch.max(outputs.data, 1)
-            total += labels.size(0)
-            correct += (predicted == labels).sum().item()
+                # Backward pass
+                loss.backward()
+                
+                # Gradient clipping to prevent exploding gradients with SGD
+                torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=1.0)
+                
+                self.optimizer.step()
+
+                # Statistics
+                running_loss += loss.item() * features.size(0)
+                _, predicted = torch.max(outputs.data, 1)
+                total += labels.size(0)
+                correct += (predicted == labels).sum().item()
 
             pbar.set_postfix({
                 'loss': loss.item(),
@@ -134,6 +253,7 @@ class StegoDetectionTrainer:
         epoch_acc = 100. * correct / total
         return epoch_loss, epoch_acc
     
+    @weave.op()
     def validate(self, val_loader):
         """Validate the model."""
         self.model.eval()
@@ -169,16 +289,16 @@ class StegoDetectionTrainer:
 
         return epoch_loss, epoch_acc, all_labels, all_predictions, all_probs
 
-    def train(self, train_loader, val_loader, epochs=50, early_stop_patience=10):
-        """Full training loop with early stopping."""
+    def train(self, train_loader, val_loader, epochs=50, early_stop_patience=10, use_mixup=True, mixup_alpha=0.2):
+        """Full training loop with early stopping and optional mixup augmentation."""
         best_val_loss = float('inf')
         patience_counter = 0
         
         for epoch in range(epochs):
             logger.info("Epoch %d/%d", epoch+1, epochs)
             
-            # Train
-            train_loss, train_acc = self.train_epoch(train_loader)
+            # Train with mixup
+            train_loss, train_acc = self.train_epoch(train_loader, use_mixup=use_mixup, mixup_alpha=mixup_alpha)
             self.train_losses.append(train_loss)
             self.train_accs.append(train_acc)
             
@@ -189,6 +309,17 @@ class StegoDetectionTrainer:
             
             logger.info("Train Loss: %.4f, Train Acc: %.2f%%", train_loss, train_acc)
             logger.info("Val Loss: %.4f, Val Acc: %.2f%%", val_loss, val_acc)
+
+            # Call scheduler
+            self.scheduler.step()
+
+            # Learning rate scheduling
+            #self.scheduler.step(val_loss)
+
+            # Get current learning rate
+            current_lr = self.optimizer.param_groups[0]['lr']
+            logger.info("Learning Rate: %.6f", current_lr)
+
             # Log to wandb if available (guarded)
             if wandb is not None:
                 try:
@@ -202,9 +333,6 @@ class StegoDetectionTrainer:
                     })
                 except Exception:
                     logger.exception('wandb.log failed')
-            
-            # Learning rate scheduling
-            self.scheduler.step(val_loss)
             
             # Early stopping
             if val_loss < best_val_loss:
@@ -257,6 +385,7 @@ class StegoDetectionTrainer:
         plt.savefig(str(out), dpi=300, bbox_inches='tight')
         logger.info("Saved training history to %s", out)
 
+    @weave.op()
     def evaluate(self, test_loader, save_plots=True):
         """Comprehensive evaluation with metrics and visualizations."""
         logger.info("%s", "="*50)
@@ -440,10 +569,10 @@ def main():
     # Configuration
     EXCEL_PATH = Path(__file__).parent.parent / 'dataGen' / 'stego_training.xlsx'
     IMG_ROOT = Path('.')
-    BATCH_SIZE = 8
+    BATCH_SIZE = 16
     EPOCHS = 100
-    EARLY_STOP_PATIENCE = 5
-    LEARNING_RATE = 1e-5
+    EARLY_STOP_PATIENCE = 20
+    LEARNING_RATE = 53-4
     DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
     # If using CUDA, enable cuDNN autotuner for potentially faster kernels
     if DEVICE.startswith('cuda'):

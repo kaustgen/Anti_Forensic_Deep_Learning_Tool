@@ -1,3 +1,8 @@
 dataGen/
-Stegnography/.dct_spatial_cache
-Stegnography/.feature_cache
+Stegnography/.dct_spatial_cache/
+Stegnography/.feature_cache/
+Stegnography/.dct_BOSS_spatial_cache/
+Stegnography/.dct_cache/
+Stegnography/.dct_BOSS_RGB_combined_cache/
+wandb/
+Stegnography/wandb/

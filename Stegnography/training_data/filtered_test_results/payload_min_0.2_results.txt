@@ -16,24 +16,24 @@ Dataset Statistics:
   Std payload: 0.223982
 
 Evaluation Results:
-  Loss: 0.2728
-  Accuracy: 93.12%
-  AUC: 0.9537
+  Loss: 0.6640
+  Accuracy: 64.38%
+  AUC: 0.6478
 
 ============================================================
 
 Classification Report:
                precision    recall  f1-score   support
 
-        Clean       0.92      0.95      0.93        80
-Steganography       0.95      0.91      0.93        80
+        Clean       0.87      0.34      0.49        80
+Steganography       0.59      0.95      0.73        80
 
-     accuracy                           0.93       160
-    macro avg       0.93      0.93      0.93       160
- weighted avg       0.93      0.93      0.93       160
+     accuracy                           0.64       160
+    macro avg       0.73      0.64      0.61       160
+ weighted avg       0.73      0.64      0.61       160
 
 ============================================================
 
 Confusion Matrix:
-  [76  4]
-  [ 7 73]
+  [27 53]
+  [ 4 76]
