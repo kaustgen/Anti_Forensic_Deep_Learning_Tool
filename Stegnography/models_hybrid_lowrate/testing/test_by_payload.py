@@ -60,9 +60,9 @@ logger = logging.getLogger(__name__)
 
 # Paths
 MODEL_PATH = Path(__file__).parent.parent / 'grey_only/best_hybrid_model.pth'
-EXCEL_PATH = Path(__file__).parent.parent.parent.parent / 'dataGen' / 'BOSS_stego_metadata.xlsx'
+EXCEL_PATH = Path(__file__).parent.parent.parent.parent / 'dataGen' / 'BOSS_steganogan_metadata.xlsx'
 IMG_ROOT = Path(__file__).parent.parent.parent.parent / 'dataGen'
-CACHE_DIR = Path(__file__).parent.parent.parent / '.dct_cache'
+CACHE_DIR = Path(__file__).parent.parent.parent / '.dct_GAN_cache'
 OUTPUT_DIR = Path(__file__).parent / 'results'
 
 # Evaluation parameters
@@ -494,8 +494,13 @@ def main():
         logger.info(f"  Filtered images: {stats['total_filtered']}")
         logger.info(f"    Clean: {stats['num_clean']}")
         logger.info(f"    Stego: {stats['num_stego']}")
-        logger.info(f"  Actual payload range: [{stats['actual_min_payload']:.4f}, {stats['actual_max_payload']:.4f}]")
-        logger.info(f"  Mean payload: {stats['mean_payload']:.4f}")
+        
+        if stats['actual_min_payload'] is not None and stats['actual_max_payload'] is not None:
+            logger.info(f"  Actual payload range: [{stats['actual_min_payload']:.4f}, {stats['actual_max_payload']:.4f}]")
+            logger.info(f"  Mean payload: {stats['mean_payload']:.4f}")
+        else:
+            logger.info(f"  Actual payload range: No stego images found")
+            logger.info(f"  Mean payload: N/A")
         
         if stats['total_filtered'] == 0:
             logger.warning(f"No images found for payload {payload_rate}!")
@@ -592,8 +597,13 @@ def main():
             f.write(f"  Total filtered: {stats['total_filtered']}\n")
             f.write(f"  Clean images: {stats['num_clean']}\n")
             f.write(f"  Stego images: {stats['num_stego']}\n")
-            f.write(f"  Payload range: [{stats['actual_min_payload']:.4f}, {stats['actual_max_payload']:.4f}]\n")
-            f.write(f"  Mean payload: {stats['mean_payload']:.4f}\n\n")
+            
+            if stats['actual_min_payload'] is not None and stats['actual_max_payload'] is not None:
+                f.write(f"  Payload range: [{stats['actual_min_payload']:.4f}, {stats['actual_max_payload']:.4f}]\n")
+                f.write(f"  Mean payload: {stats['mean_payload']:.4f}\n\n")
+            else:
+                f.write(f"  Payload range: No stego images found\n")
+                f.write(f"  Mean payload: N/A\n\n")
             
             f.write("Evaluation Results:\n")
             f.write(f"  Loss: {results['loss']:.4f}\n")
