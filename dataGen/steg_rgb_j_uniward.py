@@ -38,10 +38,10 @@ logger = logging.getLogger(__name__)
 BASE_DIR = Path(__file__).parent
 
 # Input: Augmented RGB covers
-COVER_DIR = BASE_DIR / 'rgb_augmented_clean'
+COVER_DIR = BASE_DIR / 'clean_images'
 
 # Output: Stego images and metadata
-STEGO_DIR = BASE_DIR / 'rgb_augmented_stego'
+STEGO_DIR = BASE_DIR / 'rgb_stego'
 EXCEL_OUT = BASE_DIR / 'RGB_stego_metadata.xlsx'
 
 # Match BOSS embedding rate distribution
@@ -78,16 +78,17 @@ RANDOM_SEED = 42
 
 def ensure_rgb_format(img_path):
     """
-    Ensure image is in RGB format for J-UNIWARD embedding.
+    Ensure image is in RGB format and 512×512 size for J-UNIWARD embedding.
     
     Converts RGBA to RGB if needed (removes alpha channel).
     Keeps RGB images as-is to preserve color information.
+    Resizes all images to 512×512 to match BOSS dataset dimensions.
     
     Args:
         img_path: Path to input image
         
     Returns:
-        PIL Image in RGB format
+        PIL Image in RGB format, resized to 512×512
     """
     img = Image.open(img_path)
     
@@ -95,19 +96,21 @@ def ensure_rgb_format(img_path):
     if img.mode == 'RGBA':
         rgb_img = Image.new('RGB', img.size, (255, 255, 255))
         rgb_img.paste(img, mask=img.split()[3])  # Use alpha as mask
-        return rgb_img
+        img = rgb_img
     
     # Convert grayscale to RGB (rare, but handle it)
     elif img.mode in ['L', '1']:
-        return img.convert('RGB')
+        img = img.convert('RGB')
     
-    # Already RGB - perfect!
-    elif img.mode == 'RGB':
-        return img
+    # Convert other modes to RGB
+    elif img.mode != 'RGB':
+        img = img.convert('RGB')
     
-    # Other modes - convert to RGB
-    else:
-        return img.convert('RGB')
+    # Resize to 512×512 to match BOSS dimensions
+    if img.size != (512, 512):
+        img = img.resize((512, 512), Image.LANCZOS)
+    
+    return img
 
 
 # ============================================================
@@ -147,8 +150,6 @@ def main():
     
     # Create output directories
     STEGO_DIR.mkdir(parents=True, exist_ok=True)
-    temp_rgb_dir = BASE_DIR / 'temp_rgb_converted'
-    temp_rgb_dir.mkdir(parents=True, exist_ok=True)
     
     # Shuffle and assign embedding rates
     random.seed(RANDOM_SEED)
@@ -199,6 +200,14 @@ def main():
         
         for cover_path in tqdm(covers, desc=f"{category.capitalize()} rate", unit="img"):
             try:
+                # Ensure image is in RGB format and 512×512 (resize/convert if needed)
+                rgb_img = ensure_rgb_format(cover_path)
+                
+                # Overwrite original image in clean_images if it was modified
+                # This ensures all images in clean_images are 512×512 RGB JPEGs
+                rgb_img.save(cover_path, 'JPEG', quality=95)
+                rgb_img.close()
+                
                 # Add clean cover image entry (matches BOSS format)
                 ws.cell(row=row_count, column=1, value=str(cover_path.resolve()))
                 ws.cell(row=row_count, column=2, value=False)  # Stegnography Applied?
@@ -207,22 +216,14 @@ def main():
                 ws.cell(row=row_count, column=5, value='N/A')  # Payload (bpp AC DCT)
                 ws.cell(row=row_count, column=6, value='N/A')  # Payload (bytes)
                 ws.cell(row=row_count, column=7, value='N/A')  # Payload (bits)
-                ws.cell(row=row_count, column=8, value='N/A')  # Image Dimensions
+                ws.cell(row=row_count, column=8, value="512×512")  # Image Dimensions (now standardized)
                 ws.cell(row=row_count, column=9, value='N/A')  # Non-zero AC DCT
                 ws.cell(row=row_count, column=10, value=True)  # RGB = True
                 row_count += 1
                 stats['total_covers'] += 1
                 
-                # Ensure image is in RGB format (not RGBA or grayscale)
-                rgb_img = ensure_rgb_format(cover_path)
-                
-                # Save as temporary RGB JPEG if conversion was needed
-                if rgb_img is not None:
-                    temp_cover_path = temp_rgb_dir / f"temp_{cover_path.name}"
-                    rgb_img.save(temp_cover_path, 'JPEG', quality=95)
-                    cover_for_embedding = temp_cover_path
-                else:
-                    cover_for_embedding = cover_path
+                # Use the (now standardized) cover image for embedding
+                cover_for_embedding = cover_path
                 
                 # Generate stego filename
                 stego_filename = f"{cover_path.stem}_stego_{category}.jpg"
@@ -258,14 +259,6 @@ def main():
             except Exception as e:
                 logger.error(f"Failed to process {cover_path.name}: {e}")
                 stats['failed'] += 1
-    
-    # Clean up temp directory
-    try:
-        for temp_file in temp_rgb_dir.glob('temp_*'):
-            temp_file.unlink()
-        temp_rgb_dir.rmdir()
-    except Exception as e:
-        logger.warning(f"Failed to clean temp directory: {e}")
     
     # Save Excel file
     try:

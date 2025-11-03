@@ -38,7 +38,7 @@ DCT_CHANNELS = ['Y', 'Cb', 'Cr']
 TARGET_BLOCKS = (32, 32)
 
 # Cache directory (will be created if doesn't exist)
-CACHE_DIR = Path(__file__).parent.parent / '.dct_BOSS_RGB_combined_cache'
+CACHE_DIR = Path(__file__).parent.parent / '.dct_rgb_cache'
 
 # Number of worker processes (leave 1 CPU free for system)
 NUM_WORKERS = max(1, cpu_count() - 1)

@@ -2,7 +2,7 @@ HYBRID SPATIAL+FREQUENCY CNN - PAYLOAD-BASED TESTING
 ======================================================================
 
 Model: /home/kdaus/Anti_Forensic_Deep_Learning_Tool/Stegnography/models_hybrid_lowrate/grey_only/best_hybrid_model.pth
-Dataset: /home/kdaus/Anti_Forensic_Deep_Learning_Tool/dataGen/BOSS_steganogan_metadata.xlsx
+Dataset: /home/kdaus/Anti_Forensic_Deep_Learning_Tool/dataGen/RGB_stego_metadata.xlsx
 Device: cuda
 Payload tolerance: ±0.04
 
@@ -11,31 +11,31 @@ PAYLOAD RATE: 0.1 bpnzAC
 ======================================================================
 
 Dataset Statistics:
-  Total filtered: 50
-  Clean images: 25
-  Stego images: 25
+  Total filtered: 186
+  Clean images: 93
+  Stego images: 93
   Payload range: [0.1000, 0.1000]
   Mean payload: 0.1000
 
 Evaluation Results:
-  Loss: 3.2127
-  Accuracy: 52.00%
-  AUC: 0.8992
-  Average Precision: 0.9249
+  Loss: 0.7712
+  Accuracy: 74.19%
+  AUC: 0.8527
+  Average Precision: 0.8426
 
 Confusion Matrix:
-  [[TN=1, FP=24],
-   [FN=0, TP=25]]
+  [[TN=86, FP=7],
+   [FN=41, TP=52]]
 
 Classification Report:
               precision    recall  f1-score   support
 
-       Clean       1.00      0.04      0.08        25
-       Stego       0.51      1.00      0.68        25
+       Clean       0.68      0.92      0.78        93
+       Stego       0.88      0.56      0.68        93
 
-    accuracy                           0.52        50
-   macro avg       0.76      0.52      0.38        50
-weighted avg       0.76      0.52      0.38        50
+    accuracy                           0.74       186
+   macro avg       0.78      0.74      0.73       186
+weighted avg       0.78      0.74      0.73       186
 
 
 ======================================================================
@@ -43,31 +43,31 @@ PAYLOAD RATE: 0.2 bpnzAC
 ======================================================================
 
 Dataset Statistics:
-  Total filtered: 50
-  Clean images: 25
-  Stego images: 25
-  Payload range: [0.2000, 0.2000]
+  Total filtered: 186
+  Clean images: 93
+  Stego images: 93
+  Payload range: [0.1999, 0.2000]
   Mean payload: 0.2000
 
 Evaluation Results:
-  Loss: 3.2127
-  Accuracy: 52.00%
-  AUC: 0.9376
-  Average Precision: 0.9593
+  Loss: 0.3107
+  Accuracy: 89.25%
+  AUC: 0.9585
+  Average Precision: 0.9267
 
 Confusion Matrix:
-  [[TN=1, FP=24],
-   [FN=0, TP=25]]
+  [[TN=86, FP=7],
+   [FN=13, TP=80]]
 
 Classification Report:
               precision    recall  f1-score   support
 
-       Clean       1.00      0.04      0.08        25
-       Stego       0.51      1.00      0.68        25
+       Clean       0.87      0.92      0.90        93
+       Stego       0.92      0.86      0.89        93
 
-    accuracy                           0.52        50
-   macro avg       0.76      0.52      0.38        50
-weighted avg       0.76      0.52      0.38        50
+    accuracy                           0.89       186
+   macro avg       0.89      0.89      0.89       186
+weighted avg       0.89      0.89      0.89       186
 
 
 ======================================================================
@@ -75,31 +75,31 @@ PAYLOAD RATE: 0.3 bpnzAC
 ======================================================================
 
 Dataset Statistics:
-  Total filtered: 50
-  Clean images: 25
-  Stego images: 25
-  Payload range: [0.3000, 0.3000]
+  Total filtered: 186
+  Clean images: 93
+  Stego images: 93
+  Payload range: [0.2999, 0.3000]
   Mean payload: 0.3000
 
 Evaluation Results:
-  Loss: 3.2126
-  Accuracy: 52.00%
-  AUC: 0.9792
-  Average Precision: 0.9811
+  Loss: 0.3038
+  Accuracy: 89.25%
+  AUC: 0.9587
+  Average Precision: 0.9310
 
 Confusion Matrix:
-  [[TN=1, FP=24],
-   [FN=0, TP=25]]
+  [[TN=86, FP=7],
+   [FN=13, TP=80]]
 
 Classification Report:
               precision    recall  f1-score   support
 
-       Clean       1.00      0.04      0.08        25
-       Stego       0.51      1.00      0.68        25
+       Clean       0.87      0.92      0.90        93
+       Stego       0.92      0.86      0.89        93
 
-    accuracy                           0.52        50
-   macro avg       0.76      0.52      0.38        50
-weighted avg       0.76      0.52      0.38        50
+    accuracy                           0.89       186
+   macro avg       0.89      0.89      0.89       186
+weighted avg       0.89      0.89      0.89       186
 
 
 ======================================================================
@@ -107,31 +107,31 @@ PAYLOAD RATE: 0.4 bpnzAC
 ======================================================================
 
 Dataset Statistics:
-  Total filtered: 50
-  Clean images: 25
-  Stego images: 25
+  Total filtered: 186
+  Clean images: 93
+  Stego images: 93
   Payload range: [0.4000, 0.4000]
   Mean payload: 0.4000
 
 Evaluation Results:
-  Loss: 3.2133
-  Accuracy: 52.00%
-  AUC: 0.9088
-  Average Precision: 0.9460
+  Loss: 0.2156
+  Accuracy: 93.55%
+  AUC: 0.9783
+  Average Precision: 0.9443
 
 Confusion Matrix:
-  [[TN=1, FP=24],
-   [FN=0, TP=25]]
+  [[TN=86, FP=7],
+   [FN=5, TP=88]]
 
 Classification Report:
               precision    recall  f1-score   support
 
-       Clean       1.00      0.04      0.08        25
-       Stego       0.51      1.00      0.68        25
+       Clean       0.95      0.92      0.93        93
+       Stego       0.93      0.95      0.94        93
 
-    accuracy                           0.52        50
-   macro avg       0.76      0.52      0.38        50
-weighted avg       0.76      0.52      0.38        50
+    accuracy                           0.94       186
+   macro avg       0.94      0.94      0.94       186
+weighted avg       0.94      0.94      0.94       186
 
 
 ======================================================================
@@ -140,7 +140,7 @@ SUMMARY TABLE
 
 Payload      Accuracy     AUC          Avg Precision  
 ----------------------------------------------------------------------
-0.1          52.00        0.8992       0.9249         
-0.2          52.00        0.9376       0.9593         
-0.3          52.00        0.9792       0.9811         
-0.4          52.00        0.9088       0.9460         
+0.1          74.19        0.8527       0.8426         
+0.2          89.25        0.9585       0.9267         
+0.3          89.25        0.9587       0.9310         
+0.4          93.55        0.9783       0.9443         

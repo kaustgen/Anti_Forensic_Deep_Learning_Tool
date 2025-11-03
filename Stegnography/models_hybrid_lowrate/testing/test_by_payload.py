@@ -60,9 +60,9 @@ logger = logging.getLogger(__name__)
 
 # Paths
 MODEL_PATH = Path(__file__).parent.parent / 'grey_only/best_hybrid_model.pth'
-EXCEL_PATH = Path(__file__).parent.parent.parent.parent / 'dataGen' / 'BOSS_steganogan_metadata.xlsx'
+EXCEL_PATH = Path(__file__).parent.parent.parent.parent / 'dataGen' / 'RGB_stego_metadata.xlsx'
 IMG_ROOT = Path(__file__).parent.parent.parent.parent / 'dataGen'
-CACHE_DIR = Path(__file__).parent.parent.parent / '.dct_GAN_cache'
+CACHE_DIR = Path(__file__).parent.parent.parent / '.dct_rgb_cache'
 OUTPUT_DIR = Path(__file__).parent / 'results'
 
 # Evaluation parameters

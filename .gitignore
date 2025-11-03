@@ -8,6 +8,10 @@ Stegnography/.feature_cache/
 Stegnography/.dct_BOSS_spatial_cache/
 Stegnography/.dct_cache/
 Stegnography/.dct_BOSS_RGB_combined_cache/
+Stegnography/.dct_GAN_cache/
+dataGen/BOSS_steganogan_data/
 dataGen/.jpegio_cache/
+dataGen/rgb_stego/
+Stegnography/.dct_rgb_cache/
 wandb/
 Stegnography/wandb/
