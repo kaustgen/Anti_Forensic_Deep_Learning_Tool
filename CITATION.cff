@@ -1,0 +1,12 @@
+    cff-version: 1.2.0
+    message: "If you use any ideas, code, or images from this repository please cite it below."
+    authors:
+      - family-names: "Austgen"
+        given-names: "Kaleb"
+        orcid: "https://orcid.org/0009-0005-6036-9154"
+      - family-names: "Nunez Robinson"
+        given-names: "Daniel"
+    title: "Deep Learning Anti-Forensic Detection Models"
+    version: 1.0.0
+    date-released: 11/21/2025
+    url: "https://github.com/kaustgen/Anti_Forensic_Deep_Learning_Tool/"
